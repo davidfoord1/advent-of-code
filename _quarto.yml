@@ -9,6 +9,13 @@ website:
       - href: index.qmd
         text: "R/Python AoC"
       - 2024/content.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href:  https://github.com/davidfoord1/advent-of-code
+          - text: Raise an issue
+            href:  https://github.com/davidfoord1/advent-of-code/issues
 
 format:
   html:
