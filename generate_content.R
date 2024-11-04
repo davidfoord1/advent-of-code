@@ -11,11 +11,19 @@ for (year in years) {
                            get_file_info,
                            year)
 
-  if (length(file_info_list) > 0) {
-    file_info <- do.call(rbind, file_info_list)
-
-    days <- sort(unique(file_info[["day"]]))
+  if (length(file_info_list) <= 0) {
+    message(sprintf("No scripts found for year %s.", year))
   }
 
+
+  file_info <- do.call(rbind, file_info_list)
+
+  days <- sort(unique(file_info[["day"]]))
+
+  output_file <- file.path(year, sprintf("generated_content_%s.qmd", year))
+
+  con <- file(output_file, open = "w")
+
+  close(con)
 }
 
