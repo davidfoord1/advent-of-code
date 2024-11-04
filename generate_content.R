@@ -15,14 +15,15 @@ for (year in years) {
     message(sprintf("No scripts found for year %s.", year))
   }
 
-
   file_info <- do.call(rbind, file_info_list)
 
   days <- sort(unique(file_info[["day"]]))
 
-  output_file <- file.path(year, sprintf("generated_content_%s.qmd", year))
+  output_file <- file.path(year, "generated_content.qmd")
 
   con <- file(output_file, open = "w")
+
+  add_year_heading(year, con)
 
   close(con)
 }
