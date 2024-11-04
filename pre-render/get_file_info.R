@@ -29,10 +29,10 @@ get_file_info <- function(lang_config, year) {
   ))
 
   data.frame(
-    files,
-    filenames,
+    file = files,
+    filename = filenames,
     lang_config[["name"]],
-    days,
-    parts
+    day = days,
+    part = parts
   )
 }
