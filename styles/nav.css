@@ -1,0 +1,22 @@
+.navbar {
+  background-color: #0f0f23;
+  color: #00cc00;
+}
+
+.navbar-title, .menu-text {
+  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
+
+.navbar-title, .menu-text {
+  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
+
+.navbar-nav .nav-link.active {
+  color: #ffffff;
+  border-bottom: 2px solid #ffffff;
+  text-shadow: 0 0 2px #ffffff, 0 0 5px #ffffff;
+}
+
+.nav-link {
+  color: #00cc00;
+}
