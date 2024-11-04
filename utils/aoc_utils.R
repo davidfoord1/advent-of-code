@@ -21,8 +21,8 @@ aoc_run <- function(expr) {
   if (elapsed < 0.01)
     elapsed <- "< 0.01"
 
-  cat("Answer:  ", result, "\n")
-  cat("Elapsed: ", elapsed, " seconds\n")
+  cat("Answer: ", result, "\n")
+  cat("Elapsed:", elapsed, "seconds\n")
 
   invisible(list(result, elapsed))
 }

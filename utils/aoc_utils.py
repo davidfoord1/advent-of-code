@@ -10,8 +10,8 @@ def aoc_run(expr):
     if elapsed < 0.01:
       elapsed = "< 0.01"
     
-    print("Answer:  ", result)
-    print("Elapsed: ", elapsed, " seconds")
+    print("Answer: ", result)
+    print("Elapsed:", elapsed, "seconds")
     
     return result, elapsed
 
