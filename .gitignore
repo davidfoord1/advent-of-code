@@ -8,6 +8,7 @@
 docs
 
 generated_content.qmd
+
 index.qmd
 
 input/
@@ -16,3 +17,4 @@ input/
 README.html
 README_files/
 
+index.qmd
