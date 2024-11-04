@@ -10,3 +10,7 @@ docs
 generated_content.qmd
 
 input/
+
+# README preview
+README.html
+README_files/
