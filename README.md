@@ -16,7 +16,7 @@ challenges.
 All Quarto markdown documents are made by `generate_content.R` and the functions
 it calls from `pre-render/`. The project directories are searched for solutions
 by year, language, day and part. Solutions are then pieced together into one
-`generated_content.qmd` per year.
+`content.qmd` per year.
 
 Aside from `utils/` scripts that are shared between years, years are largely
 self-contained. Each year will have its own `input/` subdirectory, and
@@ -82,4 +82,4 @@ year.
 1. Create a new folder with a 4-digit name for the year. Populate as above with
 `input/` and solutions by language.
 
-2. Add `- <year>/generated_content.qmd` to the `navbar` in `_quarto.yml`.
+2. Add `- <year>/content.qmd` to the `navbar` in `_quarto.yml`.

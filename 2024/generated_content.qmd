@@ -1,0 +1,81 @@
+---
+  title: "2024"
+---
+
+```{r r-helpers}
+#| echo: false
+# import R helpers
+source("../utils/aoc_utils.R")
+```
+```{python python-helpers}
+#| echo: false
+# import Python helpers
+with open("../utils/aoc_utils.py") as file:
+    exec(file.read())
+```
+
+::: {.panel-tabset}
+
+## Day 1
+
+::: {.panel-tabset .language-set group="language"}
+
+## R 
+
+### --- Part 1 ---
+
+```r
+{{< include R/solve_day1_part1.R >}}
+```
+
+```{r}
+#| label: r_day1_part1
+#| code-fold: true
+#| code-summary: "Run"
+aoc_source(day = 1, part = 1)
+
+input = aoc_read(day = 1)
+
+aoc_run(solve_day1_part1(input))
+```
+
+### --- Part 2 ---
+
+```r
+{{< include R/solve_day1_part2.R >}}
+```
+
+```{r}
+#| label: r_day1_part2
+#| code-fold: true
+#| code-summary: "Run"
+aoc_source(day = 1, part = 2)
+
+input = aoc_read(day = 1)
+
+aoc_run(solve_day1_part2(input))
+```
+
+## Python 
+
+### --- Part 1 ---
+
+```python
+{{< include python/solve_day1_part1.py >}}
+```
+
+```{python}
+#| label: python_day1_part1
+#| code-fold: true
+#| code-summary: "Run"
+aoc_source(day = 1, part = 1)
+
+input = aoc_read(day = 1)
+
+result = aoc_run("solve_day1_part1(input)")
+```
+
+:::
+
+:::
+

@@ -44,7 +44,7 @@ add_part_content <- function(part, day, lang_info, lang_config, con) {
   # Include the code (where it is shown but not run)
   code_filepath <- lang_info[["file"]][lang_info[["part"]] == part]
 
-  # Adjust the code_filepath to be relative to the generated_content.qmd file
+  # Adjust the code_filepath to be relative to the content.qmd file
   code_filepath_relative <- file.path(lang_config[["folder"]], basename(code_filepath))
 
   code_include <- sprintf(

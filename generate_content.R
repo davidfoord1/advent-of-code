@@ -26,7 +26,7 @@ for (year in years) {
 
   file_info_by_year <- append(file_info_by_year, list(year_file_info))
 
-  output_file <- file.path(year, "generated_content.qmd")
+  output_file <- file.path(year, "content.qmd")
 
   con <- file(output_file, open = "w")
 
