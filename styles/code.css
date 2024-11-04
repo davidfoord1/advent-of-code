@@ -1,0 +1,13 @@
+pre code {
+  font-family: "Source Code Pro", monospace;
+  text-shadow: none;
+  color: #cccccc;
+  font-size: 14pt;
+}
+
+/* code-linked functions */
+code a {
+  text-shadow: none;
+  color: #22bbee;
+}
+
