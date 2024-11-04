@@ -25,6 +25,8 @@ for (year in years) {
 
   add_year_heading(year, con)
 
+  add_days_content(file_info, con)
+
   close(con)
 }
 

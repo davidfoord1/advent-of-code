@@ -31,7 +31,7 @@ get_file_info <- function(lang_config, year) {
   data.frame(
     file = files,
     filename = filenames,
-    lang_config[["name"]],
+    language = lang_config[["name"]],
     day = days,
     part = parts
   )
