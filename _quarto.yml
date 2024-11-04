@@ -10,4 +10,5 @@ website:
 format:
   html:
     theme: vapor
+    css: styles/body.css
 
