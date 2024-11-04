@@ -15,4 +15,8 @@ format:
       - styles/body.css
       - styles/nav.css
       - styles/code.css
+    code-link: true
+    code-copy: hover
+    code-overflow: wrap
+
 
