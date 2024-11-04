@@ -6,7 +6,8 @@ project:
 website:
   navbar:
     left:
-      - index.qmd
+      - href: index.qmd
+        text: "R/Python AoC"
       - 2024/generated_content.qmd
 
 format:
