@@ -1,5 +1,5 @@
 aoc_read <- function(day) {
-  path <- paste0("input/", day, ".txt")
+  path <- paste0("input/day", day, ".txt")
   readLines(path)
 }
 
