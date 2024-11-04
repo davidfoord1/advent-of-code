@@ -8,9 +8,11 @@
 docs
 
 generated_content.qmd
+index.qmd
 
 input/
 
 # README preview
 README.html
 README_files/
+
