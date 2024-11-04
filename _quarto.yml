@@ -1,6 +1,7 @@
 project:
   type: website
   output-dir: docs
+  pre-render: generate_content.R
 
 website:
   navbar:
