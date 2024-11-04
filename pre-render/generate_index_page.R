@@ -65,4 +65,39 @@ generate_index_page <- function(all_file_info) {
       )
     }
   }
+
+  stars_wide <- stars_wide[names(stars_wide) %in% c("day", years)]
+
+  separator_row <- rep("---", length(names(stars_wide)))
+
+  table_lines <- c(
+    paste(names(stars_wide), collapse = " | "),
+    paste(separator_row, collapse = " | ")
+  )
+
+  for (row in seq_len(NROW(stars_wide))) {
+    row_values <- stars_wide[row, ]
+    table_lines <- c(table_lines, paste(row_values, collapse = " | "))
+  }
+
+  table_lines <- paste("|", table_lines, "|")
+
+  index_file <- "index.qmd"
+  index_con <- file(index_file, open = "w")
+
+  writeLines("---", index_con)
+  writeLines("title: R/Python Advent of Code Solutions", index_con)
+  writeLines("---", index_con)
+
+  intro_text <- readLines("txt/intro.txt")
+  writeLines(intro_text, index_con)
+
+  # Table heading
+  writeLines("", index_con)
+  writeLines("### Star collection", index_con)
+  writeLines("", index_con)
+
+  writeLines(table_lines, index_con)
+
+  close(index_con)
 }
