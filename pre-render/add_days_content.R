@@ -1,4 +1,6 @@
 add_days_content <- function(file_info, con) {
+  days <- sort(unique(file_info[["day"]]))
+
   # Generate the markdown content
   writeLines("::: {.panel-tabset}\n", con)
 

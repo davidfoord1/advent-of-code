@@ -1,3 +1,5 @@
+# Set up ------------------------------------------------------------------
+
 # Load lang_configs and pre-render functions
 pre_render_files <- dir("pre-render", full.names = TRUE)
 invisible(lapply(pre_render_files, source))
@@ -5,19 +7,24 @@ invisible(lapply(pre_render_files, source))
 # Get the list of years
 years <- dir(pattern = "^\\d{4}$")
 
+file_info_by_year <- list()
+
+# Page per year -----------------------------------------------------------
+
 for (year in years) {
   # Build list of files by language
-  file_info_list <- lapply(lang_configs,
-                           get_file_info,
-                           year)
+  file_info_by_lang <- lapply(lang_configs,
+                              get_file_info,
+                              year)
 
-  if (length(file_info_list) <= 0) {
-    message(sprintf("No scripts found for year %s.", year))
+  if (length(file_info_by_lang) <= 0) {
+    stop(sprintf("No scripts found for year %s.", year))
   }
 
-  file_info <- do.call(rbind, file_info_list)
+  year_file_info <- do.call(rbind, file_info_by_lang)
+  year_file_info[["year"]] <- year
 
-  days <- sort(unique(file_info[["day"]]))
+  file_info_by_year <- append(file_info_by_year, list(year_file_info))
 
   output_file <- file.path(year, "generated_content.qmd")
 
@@ -25,8 +32,18 @@ for (year in years) {
 
   add_year_heading(year, con)
 
-  add_days_content(file_info, con)
+  add_days_content(year_file_info, con)
 
   close(con)
 }
 
+
+# Index page --------------------------------------------------------------
+
+all_file_info <- do.call(rbind, file_info_by_year)
+
+if (length(all_file_info) <= 0) {
+  stop("No solution files found.")
+}
+
+generate_index_page(all_file_info)
