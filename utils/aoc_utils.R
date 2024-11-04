@@ -16,7 +16,10 @@ aoc_run <- function(expr) {
   result <- eval(expr)
 
   time_diff <- proc.time() - start_time
-  elapsed   <- time_diff[["elapsed"]]
+  elapsed   <- round(time_diff[["elapsed"]], 2)
+
+  if (elapsed < 0.01)
+    elapsed <- "< 0.01"
 
   cat("Answer:  ", result, "\n")
   cat("Elapsed: ", elapsed, " seconds\n")

@@ -7,6 +7,9 @@ def aoc_run(expr):
     
     elapsed = round(time.time() - start_time, 2)
     
+    if elapsed < 0.01:
+      elapsed = "< 0.01"
+    
     print("Answer:  ", result)
     print("Elapsed: ", elapsed, " seconds")
     
