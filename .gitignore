@@ -6,3 +6,5 @@
 /.quarto/
 
 docs
+
+generated_content.qmd

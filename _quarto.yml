@@ -6,6 +6,7 @@ website:
   navbar:
     left:
       - index.qmd
+      - 2024/generated_content.qmd
 
 format:
   html:
