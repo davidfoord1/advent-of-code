@@ -1,0 +1,13 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  navbar:
+    left:
+      - index.qmd
+
+format:
+  html:
+    theme: vapor
+
