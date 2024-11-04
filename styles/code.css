@@ -11,6 +11,12 @@ code a {
   color: #22bbee;
 }
 
+/* Comments */
+code span.co {
+  font-style: normal;
+  color: #ccffcc;
+}
+
 /* Functions */
 code span.fu, code span.bu {
   color: #22bbee;
@@ -29,6 +35,11 @@ code span.op, code span.ot {
 }
 
 /* Strings */
-code span.st {
+code span.st, code span.str {
   color: #00cc00;
+}
+
+/* Numeric/logical */
+code span.fl, code span.cn {
+  color: #e3b585;
 }
