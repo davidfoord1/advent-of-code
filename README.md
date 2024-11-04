@@ -24,24 +24,24 @@ subdirectories for each language with solutions.
 
 ```
 advent-of-code/
-├── _quarto.yml             # Quarto project definition     
-├── generate_content.R      # Control script to create .qmd files     
-├── pre-render/
-│   ├── language_configuration.R  # Config for languages e.g. R and Python
-│   ├── get_file_info.R           # Search <year>/<lang>/ for scripts
-│   ├── add_year_heading.R        # Content that's the same for all days
-│   ├── add_days_content.R        # Add individual day and part content
-│   └── generate_index_page.R     # Build index.qmd and star count table
-├── docs/                   # Rendered content for GitHub pages
+├── _quarto.yml                   # Quarto project definition     
+├── generate_content.R            # Control script to create .qmd files
+├── pre-render/                   # Functions used to create .qmd files
+│   ├── language_configuration.R    # Config for languages e.g. R and Python
+│   ├── get_file_info.R             # Search <year>/<lang>/ for scripts
+│   ├── add_year_heading.R          # Content that's the same for all days
+│   ├── add_days_content.R          # Add individual day and part content
+│   └── generate_index_page.R       # Build index.qmd and star count table
+├── docs/                         # Rendered content for GitHub pages
 ├── utils/                        
-│   ├── aoc_utils.R               # Utility funcs included by add_year_heading
-│   └── aoc_utils.py              # Utility funcs included by add_year_heading
+│   ├── aoc_utils.R                 # Utility funcs included by add_year_heading
+│   └── aoc_utils.py                # Utility funcs included by add_year_heading
 ├── txt/ 
-│   └── intro.txt                 # Home page introduction text
+│   └── intro.txt                   # Home page introduction text
 └── <year>/
-    ├── input/                    # Save inputs as text files here
-    ├── R/                        # R lang solution functions
-    └── python/                   # Python solution functions
+    ├── input/                      # Save inputs as text files here
+    ├── R/                          # R lang solution functions
+    └── python/                     # Python solution functions
 ```
 
 #### Add a new solution
