@@ -40,6 +40,10 @@
   border-bottom: 2px solid #00cc00;
 }
 
+.nav-tabs .nav-link:hover {
+  text-shadow: 0 0 5px #ffffff;
+}
+
 /* Language tabs */
 .language-set .nav-tabs .nav-link {
   font-size: 24pt;
