@@ -2,6 +2,8 @@ pre code {
   font-family: "Source Code Pro", monospace;
   text-shadow: none;
   color: #cccccc;
+  border: 1px solid #333340;
+  background: #10101a;
   font-size: 14pt;
 }
 
