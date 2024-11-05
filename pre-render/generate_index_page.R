@@ -27,10 +27,14 @@ generate_index_page <- function(all_file_info) {
 
   stars_count[["parts"]][is.na(stars_count[["parts"]])] <- 0
 
+  write_stars <- function(x) {
+    paste(rep("<span class=\"star\">\\*</span>", x), collapse = "")
+  }
+
   stars_count <- stars_count |>
     transform(parts = vapply(
       parts,
-      \(x) paste(rep("<span class=\"star\">\\*</span>", x), collapse = ""),
+      write_stars,
       character(1)
     ))
 
@@ -40,7 +44,9 @@ generate_index_page <- function(all_file_info) {
     ""
   )
 
-  stars_count[["year_language"]] <- paste(stars_count[["year"]], stars_count[["language"]], sep = "_")
+  stars_count[["year_language"]] <- paste(stars_count[["year"]],
+                                          stars_count[["language"]],
+                                          sep = "_")
 
 
   stars_wide <- reshape(
@@ -91,6 +97,7 @@ generate_index_page <- function(all_file_info) {
 
   intro_text <- readLines("txt/intro.txt")
   writeLines(intro_text, index_con)
+
 
   # Table heading
   writeLines("", index_con)
