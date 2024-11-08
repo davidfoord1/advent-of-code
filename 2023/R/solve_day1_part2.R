@@ -1,6 +1,6 @@
 solve_day1_part2 <- function(input) {
   word_digits <- c("one" = 1, "two" = 2, "three" = 3, "four" = 4, "five" = 5,
-                   "six" = 6, "seven" = 7, "eight" = 8,"nine" = 9)
+                   "six" = 6, "seven" = 7, "eight" = 8, "nine" = 9)
 
 
   # left to right
@@ -9,8 +9,7 @@ solve_day1_part2 <- function(input) {
   # right to left
   input              <- stringi::stri_reverse(input)
   names(word_digits) <- stringi::stri_reverse(names(word_digits))
-
-  last_digit <- find_first_digit(input, word_digits)
+  last_digit         <- find_first_digit(input, word_digits)
 
   calibration_numbers <- as.numeric(paste0(first_digit, last_digit))
 
