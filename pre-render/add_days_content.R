@@ -7,6 +7,14 @@ add_days_content <- function(file_info, con) {
   for (day in days) {
     writeLines(sprintf("## Day %d\n", day), con)
 
+    # Add written overview of the day
+    md <- sprintf("%s/markdown/day%s.md", unique(file_info[["year"]]), day)
+    include_md <- sprintf("\n{{< include markdown/day%s.md >}}\n", day)
+
+    if (file.exists(md)) {
+      writeLines(include_md, con)
+    }
+
     # Get the languages available for this day
     day_languages <- unique(file_info[["language"]][file_info[["day"]] == day])
 
@@ -44,6 +52,8 @@ add_part_content <- function(part, day, lang_info, lang_config, con) {
                      day,
                      part),
              con)
+
+
 
   # Include the code (where it is shown but not run)
   code_filepath <- lang_info[["file"]][lang_info[["part"]] == part]
