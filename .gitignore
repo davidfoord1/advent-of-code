@@ -5,14 +5,16 @@
 
 /.quarto/
 
-content.qmd
+# local render destination
+docs
 
+# generated content
+content.qmd
 index.qmd
 
+# puzzle inputs
 input/
 
 # README preview
 README.html
 README_files/
-
-index.qmd
