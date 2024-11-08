@@ -6,7 +6,10 @@
 /.quarto/
 
 # local render destination
-docs
+docs/
+
+# cached chunk results
+content_cache/
 
 # generated content
 content.qmd
