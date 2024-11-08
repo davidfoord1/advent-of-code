@@ -10,7 +10,7 @@ add_days_content <- function(file_info, con) {
     # Get the languages available for this day
     day_languages <- unique(file_info[["language"]][file_info[["day"]] == day])
 
-    writeLines("::: {.panel-tabset .language-set group=\"language\"}\n", con)
+    writeLines("::: {.panel-tabset .language-set}\n", con)
 
     for (language in day_languages) {
       lang_info <- file_info[file_info[["day"]] == day & file_info[["language"]] == language, ]
@@ -39,7 +39,11 @@ add_days_content <- function(file_info, con) {
 }
 
 add_part_content <- function(part, day, lang_info, lang_config, con) {
-  writeLines(sprintf("### --- Part %d ---\n", part), con)
+  writeLines(sprintf("### --- %s Day %s Part %d ---\n",
+                     lang_config[["name"]],
+                     day,
+                     part),
+             con)
 
   # Include the code (where it is shown but not run)
   code_filepath <- lang_info[["file"]][lang_info[["part"]] == part]
