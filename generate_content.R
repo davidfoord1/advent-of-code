@@ -17,11 +17,10 @@ for (year in years) {
                               get_file_info,
                               year)
 
-  if (length(file_info_by_lang) <= 0) {
-    stop(sprintf("No scripts found for year %s.", year))
-  }
-
   year_file_info <- do.call(rbind, file_info_by_lang)
+
+  if (is.null(year_file_info)) next
+
   year_file_info[["year"]] <- year
 
   file_info_by_year <- append(file_info_by_year, list(year_file_info))
