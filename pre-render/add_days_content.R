@@ -58,18 +58,25 @@ add_part_content <- function(part, day, lang_info, lang_config, con) {
   chunk_name <- sprintf("%s_day%d_part%d", tolower(lang_config[["name"]]), day, part)
   aoc_run_call <- sprintf(lang_config[["aoc_run_template"]], day, part)
 
-  exec_code_block <- sprintf(
-    "```{%s}\n#| label: %s\n#| code-fold: true\n#| code-summary: \"Run\"\n",
-    lang_config[["code_chunk_lang"]], chunk_name
-  )
+  # exec code block
+  exec_code_block <- paste(
+    # Chunk header
+    sprintf("```{%s}", lang_config[["code_chunk_lang"]]),
+    sprintf("#| label: %s", chunk_name),
+    "#| code-fold: true",
+    "#| code-summary: \"Run\"",
 
-  # Add common code before the aoc_run call
-  exec_code_block <- paste0(
-    exec_code_block,
-    sprintf("aoc_source(day = %d, part = %d)\n\n", day, part),
-    sprintf("input = aoc_read(day = %d)\n\n", day),
-    aoc_run_call,
-    "\n```\n"
+    # Load solve function
+    sprintf("aoc_source(day = %d, part = %d)\n", day, part),
+    # Read input
+    sprintf("input = aoc_read(day = %d)\n", day),
+    # Run solve function
+    sprintf(lang_config[["aoc_run_template"]], day, part),
+
+    # Close chunk
+    "```",
+
+    sep = "\n"
   )
 
   writeLines(exec_code_block, con)
