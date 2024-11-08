@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "R/Python Advent of Code Solutions",
+    "section": "",
+    "text": "A personal project of solutions to Advent of Code. I love these challenges as they give me a refreshing and stimulating way to get more comfortable coding, thinking about algorithms as well as just being being a fun set of puzzles.\nAs some kind of data analyst I am usually transforming and visualising data in Excel and R. I’m taking this as an opportunity to try out different kinds of operations and to pick up Python. I’d say it’s stepping out of my comfort zone, but perhaps by nature of my apparent obsession, I’m stepping into it.\n\nStar collection\n\n\n\n\n\n\n\nday\n2024\n\n\n\n\n1\nR ** Python *\n\n\n2\nR *\n\n\n3\n\n\n\n4\n\n\n\n5\n\n\n\n6\n\n\n\n7\n\n\n\n8\n\n\n\n9\n\n\n\n10\n\n\n\n11\n\n\n\n12\n\n\n\n13\n\n\n\n14\n\n\n\n15\n\n\n\n16\n\n\n\n17\n\n\n\n18\n\n\n\n19\n\n\n\n20\n\n\n\n21\n\n\n\n22\n\n\n\n23\n\n\n\n24\n\n\n\n25"
+  },
+  {
+    "objectID": "2024/content.html",
+    "href": "2024/content.html",
+    "title": "2024",
+    "section": "",
+    "text": "Day 1\nDay 2\n\n\n\n\n\nR\nPython\n\n\n\n— Part 1 —\n#' Title\n#'\n#' @param input\n#' Character vector of lines read from input.\n#'\n#' @return\n#' Answer\nsolve_day1_part1 &lt;- function(input) {\n  if (2 * 3 == 6) {\n    \"testing content generation\"\n  }\n}\n\nRunaoc_source(day = 1, part = 1)\n\ninput = aoc_read(day = 1)\n\naoc_run(solve_day1_part1(input))\n\nAnswer:  testing content generation \nElapsed: &lt; 0.01 seconds\n\n\n— Part 2 —\nsolve_day1_part2 &lt;- function(input) {\n  # This function will take slightly longer\n\n  sum(runif(1e8))\n}\n\nRunaoc_source(day = 1, part = 2)\n\ninput = aoc_read(day = 1)\n\naoc_run(solve_day1_part2(input))\n\nAnswer:  49998647 \nElapsed: 1.47 seconds\n\n\n\n\n\n— Part 1 —\ndef solve_day1_part1(input):\n  \"\"\"\n  Dummy function to test Python content generation\n  \n  Args:\n    input (list of str): List of lines read from input.\n    \n  Returns: \n    The answer!\n  \"\"\"\n  return \"Huzzah!\"\n\nRunaoc_source(day = 1, part = 1)\n\ninput = aoc_read(day = 1)\n\nresult = aoc_run(\"solve_day1_part1(input)\")\n\nAnswer:  Huzzah!\nElapsed: &lt; 0.01 seconds\n\n\n\n\n\n\n\n\n\nR\n\n\n— Part 1 —\n#' Title\n#'\n#' @param x What if talk about this parameter really long, how does this look in\n#' the code chunk?\n#'\n#' @return\n#' @export\n#'\n#' @examples\nsolve_day2_part1 &lt;- function(x) {\n  \"blah\"\n}\n\nRunaoc_source(day = 2, part = 1)\n\ninput = aoc_read(day = 2)\n\naoc_run(solve_day2_part1(input))\n\nAnswer:  blah \nElapsed: &lt; 0.01 seconds"
+  }
+]
