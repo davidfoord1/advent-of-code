@@ -95,7 +95,7 @@ generate_index_page <- function(all_file_info) {
   writeLines("title: R/Python Advent of Code Solutions", index_con)
   writeLines("---", index_con)
 
-  intro_text <- readLines("txt/intro.txt")
+  intro_text <- readLines("intro.md")
   writeLines(intro_text, index_con)
 
 
