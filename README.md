@@ -36,15 +36,17 @@ advent-of-code/
 ├── utils/                        
 │   ├── aoc_utils.R                 # Utility funcs included by add_year_heading
 │   └── aoc_utils.py                # Utility funcs included by add_year_heading
-├── txt/ 
-│   └── intro.txt                   # Home page introduction text
-└── <year>/
+├── intro.md                     # Home page introduction text
+├── index.qmd                    # Auto-generated Quarto home page
+└── <year>/                      # Separate folders for each year
+    ├── content.qmd/              # Auto-generated Quarto page per year
     ├── input/                      # Save inputs as text files here
+    ├── markdown/                   # Year and day overview markdown files
     ├── R/                          # R lang solution functions
     └── python/                     # Python solution functions
 ```
 
-#### Add a new solution
+#### Add a new solution (day/part)
 
 Within the year directory, under the solution's language subdirectory, add a new
 file `solve_day<number>_part<number>.<extension>` which hosts a function called
