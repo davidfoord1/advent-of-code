@@ -45,3 +45,7 @@ code span.st, code span.str {
 code span.fl, code span.cn {
   color: #e3b585;
 }
+
+p pre code:not(.sourceCode), li pre code:not(.sourceCode), pre code:not(.sourceCode) {
+  background: #10101a;
+}
