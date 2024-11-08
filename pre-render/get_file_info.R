@@ -17,15 +17,15 @@ get_file_info <- function(lang_config, year) {
 
   filenames <- basename(files)
 
-  days <- as.integer(stringr::str_extract(
+  days <- as.integer(stringi::stri_extract(
     filenames,
-    "(?<=_day)\\d+"
+    regex = "(?<=_day)\\d+"
   ))
 
 
-  parts <- as.integer(stringr::str_extract(
+  parts <- as.integer(stringi::stri_extract(
     filenames,
-    "(?<=_part)\\d+"
+    regex = "(?<=_part)\\d+"
   ))
 
   data.frame(
