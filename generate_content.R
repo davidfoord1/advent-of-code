@@ -7,9 +7,9 @@ invisible(lapply(pre_render_files, source))
 # Get the list of years
 years <- dir(pattern = "^\\d{4}$")
 
-file_info_by_year <- list()
-
 # Page per year -----------------------------------------------------------
+
+file_info_by_year <- vector("list", length(years))
 
 for (year in years) {
   # Build list of files by language
@@ -37,8 +37,11 @@ for (year in years) {
   close(con)
 }
 
-
 # Index page --------------------------------------------------------------
+
+# filter list in case a year folder exists but no scripts
+has_file_info <- vapply(file_info_by_year, is.data.frame, logical(1))
+file_info_by_year <- file_info_by_year[has_file_info]
 
 all_file_info <- do.call(rbind, file_info_by_year)
 
