@@ -11,18 +11,28 @@ aoc_source <- function(day, part) {
 aoc_run <- function(expr) {
   expr <- substitute(expr)
 
-  start_time <- proc.time()
+  result <- suppressWarnings(
+    bench::mark(eval(expr), iterations = 1)
+  )
 
-  result <- eval(expr)
+  time <- unclass(result[["total_time"]])
 
-  time_diff <- proc.time() - start_time
-  elapsed   <- round(time_diff[["elapsed"]], 2)
+  if (time < 0.001) {
+    time <- "< 0.001"
+  } else {
+    time <- round(time, 3)
+  }
 
-  if (elapsed < 0.01)
-    elapsed <- "< 0.01"
+  mem_alloc <- unclass(result[["mem_alloc"]]) / 1024
 
-  cat("Answer: ", result, "\n")
-  cat("Elapsed:", elapsed, "seconds\n")
+  if (mem_alloc < 1) {
+    mem_alloc <- "< 1"
+  } else {
+    mem_alloc <- round(mem_alloc)
+  }
 
-  invisible(list(result, elapsed))
+  cat("Elapsed:", time, "seconds\n")
+  cat("Memory: ", mem_alloc, "KB\n")
+
+  invisible(list(time, mem_alloc))
 }
