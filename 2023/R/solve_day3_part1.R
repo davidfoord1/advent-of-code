@@ -1,6 +1,4 @@
 solve_day3_part1 <- function(input) {
-  num_locs <- gregexpr("\\d+", input)
-
   # find and extract numbers in each line
   num_locs <- stringi::stri_locate_all(input, regex = "\\d+")
   nums     <- stringi::stri_extract_all(input, regex = "\\d+")
