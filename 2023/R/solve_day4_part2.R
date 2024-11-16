@@ -17,16 +17,17 @@ solve_day4_part2 <- function(input) {
   win_count <- unlist(win_count)
 
   copies <-  rep(1, length(cards))
-  copy_no <- 1
-  while (copy_no <= max(copies)) {
-    for (card in seq_along(copies)) {
-      if (copies[card] >= copy_no) {
-        new_cards <- card + seq_len(win_count[card])
-        copies[new_cards] <- copies[new_cards] + 1
-      }
-    }
 
-    copy_no <- copy_no + 1
+  # because cards only add new copies of later cards,
+  # we can sequence along them in order
+  for (card in seq_along(copies)) {
+    # if there are winning numbers
+    if (win_count[card] > 0) {
+      # we add wins to the number of following cards
+      new_card_range <- (card + 1):(card + win_count[[card]])
+      # the number we add is the number of copies we have of the current card
+      copies[new_card_range] <- copies[new_card_range] + copies[card]
+    }
   }
 
   sum(copies)
