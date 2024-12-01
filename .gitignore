@@ -21,3 +21,6 @@ input/
 # README preview
 README.html
 README_files/
+
+# Python caching
+__pycache__/
