@@ -79,6 +79,7 @@ add_part_content <- function(part, day, lang_info, lang_config, con) {
     sprintf("#| label: %s", chunk_name),
     "#| code-fold: true",
     "#| code-summary: \"Run\"",
+    "#| cache: true",
 
     # Load solve function
     sprintf("aoc_source(day = %d, part = %d)\n", day, part),
