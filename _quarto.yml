@@ -3,9 +3,6 @@ project:
   output-dir: docs
   pre-render: generate_content.R
 
-execute:
-  cache: true
-
 website:
   navbar:
     left:
