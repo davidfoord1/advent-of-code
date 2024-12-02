@@ -8,12 +8,11 @@
 # local render destination
 docs/
 
-# cached chunk results
-content_cache/
-
 # generated content
-content.qmd
 index.qmd
+nav.qmd
+# individual days
+?.qmd
 
 # puzzle inputs
 input/
@@ -22,5 +21,5 @@ input/
 README.html
 README_files/
 
-# Python caching
-__pycache__/
+# Caching
+*cache*

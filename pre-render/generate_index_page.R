@@ -70,6 +70,23 @@ generate_index_page <- function(all_file_info) {
         stars_wide[[col_name]]
       )
     }
+
+    # add year-day navigation links
+    # can find elements as .table a
+    stars_wide[[year]] <- ifelse(
+      grepl("star", stars_wide[[year]]),
+      stars_wide[[year]] <- paste0(
+        "[",
+        stars_wide[[year]],
+        "](",
+        year,
+        "/",
+        stars_wide[["day"]],
+        ".qmd)"
+      ),
+      ""
+    )
+
   }
 
   stars_wide <- stars_wide[names(stars_wide) %in% c("day", years)]
