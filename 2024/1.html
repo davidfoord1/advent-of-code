@@ -96,6 +96,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script><link rel="stylesheet" href="../styles/body.css">
 <link rel="stylesheet" href="../styles/nav.css">
+<link rel="stylesheet" href="../styles/day-nav.css">
+<link rel="stylesheet" href="../styles/lang-nav.css">
 <link rel="stylesheet" href="../styles/code.css">
 </head>
 <body class="nav-fixed fullcontent">
@@ -110,10 +112,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
 <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
-<span class="menu-text">R/Python AoC</span></a>
+<span class="menu-text">R &amp; Python AoC</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../2024/content.html" aria-current="page"> 
+    <a class="nav-link active" href="../2024/1.html" aria-current="page"> 
 <span class="menu-text">2024</span></a>
   </li>  
 </ul>
@@ -156,13 +158,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Day 1</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Day 2</a></li>
-</ul>
-<div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+</header><script src="../scripts/day-nav.js"></script><div class="day-nav">
+<p><a href="../2024/1.html">Day 1</a> <a href="../2024/2.html">Day 2</a></p>
+</div>
 <div class="tabset-margin-container"></div><div class="panel-tabset language-set">
 <ul class="nav nav-tabs" role="tablist">
 <li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
@@ -250,7 +248,7 @@ Memory:  71 KB</code></pre>
 <span></span>
 <span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day1_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.007 seconds
+<pre><code>Elapsed: 0.008 seconds
 Memory:  4067 KB</code></pre>
 </div>
 </div>
@@ -281,27 +279,24 @@ Memory:  4067 KB</code></pre>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">  int</span></span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">      The sum of absolute differences between the sorted lists</span></span>
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract to 2 lists of integers for ease of operations</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  lines <span class="op">=</span> [line.split() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">input</span>]</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  first_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">0</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  second_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">1</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sort so that we pair up the smallest number in the left list with the</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># smallest number in the right list etc.</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  first_list.sort()</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  second_list.sort()</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  distances <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> <span class="bu">len</span>(first_list)</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we want the absolute distance</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># it doesn't matter which list has the larger number</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(first_list)):</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    distances[i] <span class="op">=</span> <span class="bu">abs</span>(second_list[i] <span class="op">-</span> first_list[i])</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="bu">sum</span>(distances))</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract to 2 lists of integers for ease of operations</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  lines <span class="op">=</span> [line.split() <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">input</span>]</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  first_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">0</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  second_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">1</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sort so that we pair up the smallest number in the left list with the</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># smallest number in the right list etc.</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  first_list.sort()</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  second_list.sort()</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  distances <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> <span class="bu">len</span>(first_list)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we want the absolute distance</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># it doesn't matter which list has the larger number</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(first_list)):</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    distances[i] <span class="op">=</span> <span class="bu">abs</span>(second_list[i] <span class="op">-</span> first_list[i])</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="bu">sum</span>(distances))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">1</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -309,8 +304,8 @@ Memory:  4067 KB</code></pre>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day1_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.016 seconds
-Memory:  378 KB</code></pre>
+<pre><code>Elapsed: 0.005 seconds
+Memory:  377 KB</code></pre>
 </div>
 </div>
 </section><section id="python-day-1-part-2" class="level3"><h3 class="anchored" data-anchor-id="python-day-1-part-2">— Python Day 1 Part 2 —</h3>
@@ -362,43 +357,6 @@ Memory:  357 KB</code></pre>
 </div>
 </div>
 </section>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="tabset-margin-container"></div><div class="panel-tabset language-set">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li></ul>
-<div class="tab-content language-set">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<section id="r-day-2-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-2-part-1">— R Day 2 Part 1 —</h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#' Title</span></span>
-<span><span class="co">#'</span></span>
-<span><span class="co">#' @param x What if talk about this parameter really long, how does this look in</span></span>
-<span><span class="co">#' the code chunk?</span></span>
-<span><span class="co">#'</span></span>
-<span><span class="co">#' @return</span></span>
-<span><span class="co">#' @export</span></span>
-<span><span class="co">#'</span></span>
-<span><span class="co">#' @examples</span></span>
-<span><span class="va">solve_day2_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="st">"blah"</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">2</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day2_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: &lt; 0.001 seconds
-Memory:  &lt; 1 KB</code></pre>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>

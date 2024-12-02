@@ -1,0 +1,19 @@
+div.day-nav a.current-day {
+  color: #00cc00;
+  border-bottom: 2px solid #00cc00;
+}
+
+div.day-nav a {
+  text-shadow: none;
+  text-decoration: none;
+  padding: 8pt;
+}
+
+/* Index page */
+.table a {
+  text-decoration: none;
+}
+
+.table a:hover {
+   text-shadow: 0 0 2px #ffffff, 0 0 5px #ffffff;
+}
