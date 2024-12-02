@@ -8,7 +8,7 @@ def solve_day2_part1(input):
      either all decreasing OR all increasing
      AND all absolute differences are within 1 to 3
   
-    Parameters
+  Parameters
   ----------
   input : list of str
       Where each string is a report and each digit is a 'level'
