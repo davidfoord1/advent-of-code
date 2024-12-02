@@ -7,8 +7,9 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: "R/Python AoC"
-      - 2024/content.qmd
+        text: "R & Python AoC"
+      - 2024/1.qmd
+
     tools:
       - icon: github
         menu:
@@ -23,9 +24,9 @@ format:
     css:
       - styles/body.css
       - styles/nav.css
+      - styles/day-nav.css
+      - styles/lang-nav.css
       - styles/code.css
     code-link: true
     code-copy: hover
     code-overflow: wrap
-
-

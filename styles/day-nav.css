@@ -1,0 +1,10 @@
+div.day-nav a.current-day {
+  color: #00cc00;
+  border-bottom: 2px solid #00cc00;
+}
+
+div.day-nav a {
+  text-shadow: none;
+  text-decoration: none;
+  padding: 8pt;
+}

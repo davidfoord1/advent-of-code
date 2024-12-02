@@ -1,0 +1,10 @@
+.language-set .nav-tabs .nav-link {
+  font-size: 28pt;
+  color: #9999cc;
+}
+
+.language-set .nav-tabs .nav-link.active {
+  color: #ffff66;
+  border-bottom: none;
+  background-color: #0f0f23;
+}
