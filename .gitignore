@@ -12,7 +12,8 @@ docs/
 index.qmd
 nav.qmd
 # individual days
-?.qmd
+[0-9].qmd
+[1-2][0-9].qmd
 
 # puzzle inputs
 input/
