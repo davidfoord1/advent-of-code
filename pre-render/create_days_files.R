@@ -81,7 +81,7 @@ create_days_files <- function(file_info) {
     }
 
     writeLines(":::\n", day_con)
-  }
 
-  close(day_con)
+    close(day_con)
+  }
 }
