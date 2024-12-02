@@ -21,7 +21,6 @@ def solve_day1_part1(input):
   int
       The sum of absolute differences between the sorted lists
   """
-    
   # extract to 2 lists of integers for ease of operations
   lines = [line.split() for line in input]
   first_list = [int(line[0]) for line in lines]
@@ -40,5 +39,3 @@ def solve_day1_part1(input):
     distances[i] = abs(second_list[i] - first_list[i])
   
   return(sum(distances))
-  
-  
