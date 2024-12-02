@@ -35,7 +35,8 @@ solve_day2_part2 <- function(input) {
 #' Find the majority direction in differences (increasing/decreasing) if there
 #' is one. Mark the minority direction as unsafe diffs. Mark absolute diffs
 #' that aren't in 1, 2, 3 as unsafe. For each unsafe diff check if the report
-#' would be safe by removing the diff either side of it.
+#' could be safe with new reports made by removing the levels either side of
+#' it.
 #'
 #' If there is no majority direction then the report is unsafe because the
 #' dampener won't be enough. (I suppose this assumes report length is not 3,
