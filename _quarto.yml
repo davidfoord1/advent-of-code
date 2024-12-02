@@ -18,6 +18,8 @@ website:
           - text: Raise an issue
             href:  https://github.com/davidfoord1/advent-of-code/issues
 
+  back-to-top-navigation: true
+
 format:
   html:
     theme: vapor
