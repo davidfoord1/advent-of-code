@@ -9,8 +9,9 @@
 docs/
 
 # generated content
-content.qmd
 index.qmd
+nav.qmd
+# individual days
 ?.qmd
 
 # puzzle inputs
