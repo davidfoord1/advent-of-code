@@ -1,6 +1,6 @@
 import numpy as np
 
-def solve_day2_part2(input):
+def solve_day2_part2(text):
   """
   Find how many reports are safe
   
@@ -10,7 +10,7 @@ def solve_day2_part2(input):
   
     Parameters
   ----------
-  input : list of str
+  text : list of str
       Where each string is a report and each digit is a 'level'
 
   Returns
@@ -19,7 +19,7 @@ def solve_day2_part2(input):
     The number of safe reports
   
   """
-  reports_list = [line.split() for line in input]
+  reports_list = [line.split() for line in text]
   reports_list = [np.array(report, dtype = np.int32) for report in reports_list]
     
   

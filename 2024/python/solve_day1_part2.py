@@ -1,4 +1,4 @@
-def solve_day1_part2(input):
+def solve_day1_part2(text):
   """
   Score the similarities between 2 lists
   
@@ -11,7 +11,7 @@ def solve_day1_part2(input):
   
   Parameters
   ----------
-  input : list of str
+  text : list of str
       Where each string contains a number in the first list and a the second 
       list.
 
@@ -22,7 +22,7 @@ def solve_day1_part2(input):
   """
     
   # extract to 2 lists of integers for ease of operations
-  lines = [line.split() for line in input]
+  lines = [line.split() for line in text]
   first_list = [int(line[0]) for line in lines]
   second_list = [int(line[1]) for line in lines]
   
