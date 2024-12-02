@@ -8,3 +8,7 @@
   border-bottom: none;
   background-color: #0f0f23;
 }
+
+.language-set .nav-tabs  a.nav-link:hover{
+  text-shadow: 0 0 2px #ffffff, 0 0 5px #ffffff;
+}
