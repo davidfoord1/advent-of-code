@@ -12,11 +12,17 @@ create_days_files <- function(file_info) {
 
     # YAML header ----
     writeLines(
-      c("---", sprintf("  title: \"%s Day %s\"", year, day), "---"),
+      c("---",
+        sprintf("  title: \"%s\"", year),
+        "---"),
       day_con
     )
 
     # In year navigation ----
+
+    writeLines("<script src=\"../scripts/day-nav.js\"></script>", day_con)
+
+    writeLines("{{< include nav.qmd >}}", day_con)
 
     # Day content ----
 
@@ -76,4 +82,6 @@ create_days_files <- function(file_info) {
 
     writeLines(":::\n", day_con)
   }
+
+  close(day_con)
 }

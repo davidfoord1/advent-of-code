@@ -25,13 +25,13 @@ for (year in years) {
 
   file_info_by_year <- append(file_info_by_year, list(year_file_info))
 
-  output_file <- file.path(year, "content.qmd")
+  output_file <- file.path(year, "nav.qmd")
 
   con <- file(output_file, open = "w")
 
-  add_year_heading(year, con)
+  add_days_navigation(year_file_info, con)
 
-  add_days_content(year_file_info, con)
+  create_days_files(year_file_info)
 
   close(con)
 }
