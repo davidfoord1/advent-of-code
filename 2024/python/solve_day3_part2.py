@@ -13,7 +13,6 @@ def solve_day3_part2(text):
   text : list of str
     Lines to parse for numbers to multiply.
       
-
   Returns
   -------
   int

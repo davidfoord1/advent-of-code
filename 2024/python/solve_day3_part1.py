@@ -12,7 +12,6 @@ def solve_day3_part1(text):
   text : list of str
     Lines to parse for numbers to multiply.
       
-
   Returns
   -------
   int
