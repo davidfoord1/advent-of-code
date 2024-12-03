@@ -6,15 +6,6 @@
 #'
 #' As well as whether the same can be achieved by removing one of the levels.
 #'
-#' I took what seems to be a long-winded approach of trying to identify which
-#' levels caused unsafe differences. Then I tried reports with those levels
-#' removed and tested if they were safe. My first attempt included checking for
-#' a majority direction of differences and replacing the differences in the
-#' minority, but I forgot to deal with no majority!
-#'
-#' I see from others that it would be simpler to just try removing each and
-#' every level, which is plenty feasible with the input.
-#'
 #' @param input
 #' A character vector, where each represents  a report, containing space
 #' delimited sequence of digits, 'levels'

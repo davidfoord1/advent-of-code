@@ -32,11 +32,6 @@ def is_safe(report):
   If a report is not ordinarily safe, try removing each single level to
   then check if is safe.
   
-  I opted for a simpler approach than my R version - just trying removing every
-  individual level in the report instead of checking which levels were unsafe. 
-  Preferred to have this simpler logic as working with Python lists and numpy 
-  arrays are new to me.
-  
   Parameters
   ----------
   report : numpy array of int

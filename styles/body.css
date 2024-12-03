@@ -28,3 +28,9 @@ span.star {
 .tab-content {
   padding-top: 0px;
 }
+
+p {
+  padding-top: 8px;
+  font-size: 14pt;
+  font-family: "Cascadia Code Light";
+}
