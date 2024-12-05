@@ -13,7 +13,7 @@
 #'
 #' @return
 #' The sum of middle numbers of unsorted page update lists.
-solve_day5_part1 <- function(input) {
+solve_day5_part2 <- function(input) {
   sep <- which(nchar(input) == 0)
 
   # ordering rules map ----
