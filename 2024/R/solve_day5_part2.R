@@ -89,10 +89,9 @@ is_sorted  <- function(update, after_map) {
 
 #' Sort a list of pages
 #'
-#' An implementation of bubble sort. We iterate along the list of pages in
-#' pairs. If the first number in the pair is in the after list of the second
-#' number in the pair, we swap the top numbers. Repeat from the start until all
-#' numbers have been sorted.
+#' Iterate through each number in the list: Check the preceding numbers, if any
+#' of those are in the after list of the number being checked, move them after
+#' that number and move the rest in front.
 #'
 #' @param update
 #' A character vector of page numbers to sort
@@ -103,7 +102,6 @@ is_sorted  <- function(update, after_map) {
 #' @return
 #' A sorted version of `update`
 sort_update <- function(update, after_map) {
-  # this is whether the number has been sorted, not the resulting sorted list
   been_sorted <- character()
 
   while (length(been_sorted) != length(update)) {
@@ -111,9 +109,13 @@ sort_update <- function(update, after_map) {
       check_num <- update[[i]]
       to_check <- update[-i]
 
+      # location of numbers before the check_num that shouldn't be
       ooo <- which(to_check %in% after_map[[check_num]])
 
+      # if we have any out of order
       if (length(ooo) > 0) {
+        # move those numbers after the check_num
+        # place the rest before the check_num to preserve ordering
         update <- c(to_check[-ooo], check_num, to_check[ooo])
       }
 
