@@ -7,7 +7,7 @@
 #' A character vector of lines as part of a word search grid
 #'
 #' @return
-#' The number of occurrences of "XMAS" in the word search
+#' numeric(1) Occurrences of "XMAS" in the word search
 solve_day4_part1 <- function(input) {
   # get input into a matrix
   # this clunky line is because I've stuck to readLines for the input
@@ -39,7 +39,7 @@ solve_day4_part1 <- function(input) {
 
 #' Search lines from an "X" for "MAS"
 #'
-#' In 8 directions, check the next 3 grid cells for the sequence "M" "A" "S"
+#' In 8 directions, check the next 3 grid cells for the sequence "M" "A" "S".
 #'
 #' @param grid
 #' Character matrix to search
@@ -54,21 +54,37 @@ find_xmas <- function(grid, row, col) {
   words <- list()
 
   # up-left
-  words[[1]] <- c(grid[row - 1, col - 1], grid[row - 2, col - 2], grid[row - 3, col - 3])
+  words[[1]] <- c(grid[row - 1, col - 1],
+                  grid[row - 2, col - 2],
+                  grid[row - 3, col - 3])
   # up
-  words[[2]] <- c(grid[row - 1, col], grid[row - 2, col], grid[row - 3, col])
+  words[[2]] <- c(grid[row - 1, col],
+                  grid[row - 2, col],
+                  grid[row - 3, col])
   # up-right
-  words[[3]] <- c(grid[row - 1, col + 1], grid[row - 2, col + 2], grid[row - 3, col + 3])
+  words[[3]] <- c(grid[row - 1, col + 1],
+                  grid[row - 2, col + 2],
+                  grid[row - 3, col + 3])
   # left
-  words[[4]] <- c(grid[row, col - 1], grid[row, col - 2], grid[row, col - 3])
+  words[[4]] <- c(grid[row, col - 1],
+                  grid[row, col - 2],
+                  grid[row, col - 3])
   # right
-  words[[5]] <- c(grid[row, col + 1], grid[row, col + 2], grid[row, col + 3])
+  words[[5]] <- c(grid[row, col + 1],
+                  grid[row, col + 2],
+                  grid[row, col + 3])
   # down-left
-  words[[6]] <- c(grid[row + 1, col - 1], grid[row + 2, col - 2], grid[row + 3, col - 3])
+  words[[6]] <- c(grid[row + 1, col - 1],
+                  grid[row + 2, col - 2],
+                  grid[row + 3, col - 3])
   # down
-  words[[7]] <- c(grid[row + 1, col], grid[row + 2, col], grid[row + 3, col])
+  words[[7]] <- c(grid[row + 1, col],
+                  grid[row + 2, col],
+                  grid[row + 3, col])
   # down-right
-  words[[8]] <- c(grid[row + 1, col + 1], grid[row + 2, col + 2], grid[row + 3, col + 3])
+  words[[8]] <- c(grid[row + 1, col + 1],
+                  grid[row + 2, col + 2],
+                  grid[row + 3, col + 3])
 
   sum(vapply(words, \(word) identical(word, c("M", "A", "S")), logical(1)))
 }

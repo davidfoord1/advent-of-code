@@ -1,13 +1,13 @@
-#' Complete an XMAS word search
+#' Complete an X-MAS word search
 #'
-#' Iterate over the word search as a matrix. When you find an "X", check
-#' around it for the full word "XMAS",
+#' Iterate over the word search as a matrix. When you find an "A", check
+#' the diagonals crossing it for 2 "MAS"s.
 #'
 #' @param input
 #' A character vector of lines as part of a word search grid
 #'
 #' @return
-#' The number of occurrences of "XMAS" in the word search
+#' numeric(1) Occurrences of crossing "MAS"s in the word search
 solve_day4_part2 <- function(input) {
   # get input into a matrix
   # this clunky line is because I've stuck to readLines for the input
@@ -22,7 +22,7 @@ solve_day4_part2 <- function(input) {
 
   x_mas_count <- 0
 
-  # go through each positino in the grid
+  # go through each position in the grid
   for (row in seq_len(NROW(grid))) {
     for (col in seq_len(NCOL(grid))) {
 
