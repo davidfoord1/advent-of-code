@@ -49,11 +49,7 @@ solve_day5_part2 <- function(input) {
 
     if (!is_sorted(updates[[i]], after_map)) {
       # then sort them and store their middle page number
-      update <- sort_update(update, after_map)
-
-
-      middle_index <- ceiling(length(update) / 2)
-      middle_nums[[i]] <- as.numeric(update[[middle_index]])
+      middle_nums[[i]] <- find_middle(update, after_map)
     }
   }
 
@@ -87,41 +83,28 @@ is_sorted  <- function(update, after_map) {
   TRUE
 }
 
-#' Sort a list of pages
+#' Find the middle number of a list
 #'
-#' Iterate through each number in the list: Check the preceding numbers, if any
-#' of those are in the after list of the number being checked, move them after
-#' that number and move the rest in front.
+#' @param page_list
+#' Character vector of page numbers
 #'
-#' @param update
-#' A character vector of page numbers to sort
 #' @param after_map
-#' #' Environment, key-value pairs where each value is a character vector of
-#' pages that should come after the key
+#' Environment, key-value pairs where each value is a character vector of pages
+#' that should come after the key
 #'
 #' @return
-#' A sorted version of `update`
-sort_update <- function(update, after_map) {
-  been_sorted <- character()
+#' numeric(1) the middle number
+find_middle <- function(page_list, after_map) {
+  half <- floor(length(page_list)/2)
 
-  while (length(been_sorted) != length(update)) {
-    for (i in seq_along(update)) {
-      check_num <- update[[i]]
-      to_check <- update[-i]
+  for (i in seq_along(page_list)) {
+    check_num <- page_list[[i]]
 
-      # location of numbers before the check_num that shouldn't be
-      ooo <- which(to_check %in% after_map[[check_num]])
+    # how many pages come after the page we're checking
+    nums_after <- sum(page_list %in% after_map[[check_num]])
 
-      # if we have any out of order
-      if (length(ooo) > 0) {
-        # move those numbers after the check_num
-        # place the rest before the check_num to preserve ordering
-        update <- c(to_check[-ooo], check_num, to_check[ooo])
-      }
-
-      been_sorted <- unique(c(been_sorted, check_num))
+    if (nums_after == half) {
+      return(as.numeric(check_num))
     }
   }
-
-  update
 }
