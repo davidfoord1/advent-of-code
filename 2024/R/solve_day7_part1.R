@@ -18,7 +18,7 @@ solve_day7_part1 <- function(input) {
 
   nums <- lapply(lines, \(line) line[-1])
 
-  possible <- Map(memo_is_possible, targets, nums)
+  possible <- Map(is_possible, targets, nums)
 
   sum(targets[as.logical(possible)])
 }
@@ -65,6 +65,3 @@ is_possible <- function(target, nums, operator = NULL) {
   is_possible(target, nums, `+`) ||
     is_possible(target, nums, `*`)
 }
-
-#' Cache results as you go to save recalculations for the same combinations
-memo_is_possible <- memoise::memoise(is_possible)

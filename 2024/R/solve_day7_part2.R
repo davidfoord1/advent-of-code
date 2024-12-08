@@ -19,7 +19,9 @@ solve_day7_part2 <- function(input) {
 
   nums <- lapply(lines, \(line) line[-1])
 
-  possible <- Map(memo_is_possible, targets, nums)
+  # Parellelise
+  future::plan(future::multisession, workers = 3)
+  possible <- furrr::future_map2_lgl(targets, nums, is_possible)
 
   sum(targets[as.logical(possible)])
 }
@@ -66,5 +68,3 @@ is_possible <- function(target, nums, operator = NULL) {
     is_possible(target, nums, `*`) ||
     is_possible(target, nums, paste0)
 }
-
-memo_is_possible <- memoise::memoise(is_possible)
