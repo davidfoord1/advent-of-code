@@ -8,6 +8,7 @@ website:
     left:
       - href: index.qmd
         text: "R & Python AoC"
+      - 2023/1.qmd
       - 2024/1.qmd
 
     tools:
