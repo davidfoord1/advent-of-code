@@ -17,9 +17,11 @@ solve_day8_part2 <- function(input) {
   nrows <- NROW(grid)
   ncols <- NCOL(grid)
 
-  antennas <- new.env(paren = emptyenv())
+  # lookup table
+  antennas <- new.env(parent = emptyenv())
 
-  # store each position for the same letter in the hashtab
+  # iterate over the grid
+  # store each antenna position against its letter in the lookup table
   for (row in seq_len(NROW(grid))) {
     for (col in seq_len(NCOL(grid))) {
       frequency <- grid[row, col]
@@ -50,9 +52,12 @@ solve_day8_part2 <- function(input) {
 #' Distance = (5, 5) - (3, 3) = (2, 2)
 #'
 #' Antinodes are:
-#' (3, 3) - (2, 2) = (1, 1) - next position in this direction
+#' (3, 3)
+#' (3, 3) - (2, 2) = (1, 1)
+#' Next position in this direction would be out of bounds
 #'
-#' (5, 5) + (2, 2), = (7, 7)
+#' (5, 5)
+#' (5, 5) + (2, 2) = (7, 7)
 #' (7, 7) + (2, 2) = (9, 9)
 #' (9, 9) + (2, 2) = (11, 11)
 #' ... until out of bounds
