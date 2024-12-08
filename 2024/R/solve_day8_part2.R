@@ -5,7 +5,7 @@
 #' find the antinodes they produce. Count the unique antinode locations across
 #' all frequencies.
 #'
-#' This time the bounds checking is done in `find_antinodes()`
+#' Bounds checking is done in `find_antinodes()`
 #'
 #' @param input
 #' Character vector of rows in the antennas map
@@ -23,6 +23,7 @@ solve_day8_part2 <- function(input) {
   for (row in seq_len(NROW(grid))) {
     for (col in seq_len(NCOL(grid))) {
       frequency <- grid[row, col]
+
       if (frequency != ".") {
         antennas[[frequency]] <- c(antennas[[frequency]], list(c(row, col)))
       }
@@ -64,10 +65,13 @@ solve_day8_part2 <- function(input) {
 find_antinodes <- function(antennas, nrows, ncols) {
   antinodes <- vector("list")
 
+  # iterate first in pair
   for (i in 1:(length(antennas) - 1)) {
+    # iterate second in pair
     for (j in (i+1):length(antennas)) {
       pos1 <- antennas[[i]]
       pos2 <- antennas[[j]]
+
       dist <- pos2 - pos1
 
       # moving away from the first antenna

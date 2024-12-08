@@ -59,7 +59,9 @@ solve_day8_part1 <- function(input) {
 find_antinodes <- function(antennas) {
   antinodes <- vector("list")
 
+  # iterate first in pair
   for (i in 1:(length(antennas) - 1)) {
+    # iterate second in pair
     for (j in (i+1):length(antennas)) {
       pos1 <- antennas[[i]]
       pos2 <- antennas[[j]]
