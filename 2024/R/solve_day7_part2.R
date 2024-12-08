@@ -23,7 +23,7 @@ solve_day7_part2 <- function(input) {
   future::plan(future::multisession, workers = 3)
   possible <- furrr::future_map2_lgl(targets, nums, is_possible)
 
-  sum(targets[as.logical(possible)])
+  sum(targets[possible])
 }
 
 #' Check if a sequence of numbers can meet a target

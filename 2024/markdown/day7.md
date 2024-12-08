@@ -1,0 +1,1 @@
+My part 2 is slow; I threw in some parellelisation and called it a day.
