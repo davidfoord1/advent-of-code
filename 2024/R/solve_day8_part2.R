@@ -32,7 +32,7 @@ solve_day8_part2 <- function(input) {
     }
   }
 
-  antinodes <- eapply(nodes, find_antinodes, nrows, ncols)
+  antinodes <- eapply(antennas, find_antinodes, nrows, ncols)
   antinodes <- unique(unlist(antinodes, recursive = FALSE))
 
   length(antinodes)
