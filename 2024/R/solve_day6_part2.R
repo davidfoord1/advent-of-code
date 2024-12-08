@@ -40,7 +40,6 @@ solve_day6_part2 <- function(input) {
   has_loop <- logical(length(visited))
 
   for (i in seq_along(visited)) {
-    print(i)
     has_loop[[i]] <- try_loop(visited[[i]], grid, dirs)
     print(sum(has_loop))
   }
@@ -64,13 +63,10 @@ try_loop <- function(obs_pos, grid, dirs, dir_num = 1) {
     pos_name <- paste0(pos, collapse = ",")
 
     if (dir_num %in% visited[[pos_name]]) {
-      cat("found ", dir_num, " at ", pos, "\n")
-      print(length(visited))
       return(TRUE)
     }
 
     visited[[pos_name]] <- c(visited[[pos_name]], dir_num)
-    grid[pos] <- paste0(grid[pos], dir_num, collapse = "")
 
     next_pos <- pos + dirs[[dir_num]]
 
@@ -100,45 +96,3 @@ out_of_bounds <- function(pos, nrows, ncols) {
   pos[[1]] <= 0 || pos[[1]] > nrows ||
     pos[[2]] <= 0 || pos[[2]] > ncols
 }
-
-try_loopsaf <- function(grid, pos, next_pos, dir) {
-  grid[next_pos] <- "#"
-  visited <- hashtab()
-
-  repeat {
-    if (dir_num %in% gethash(visited, pos)) {
-      cat("found ", dir, " at ", pos)
-      return(TRUE)
-    }
-
-    next_pos <- pos + dir
-
-    if (out_of_bounds(next_pos, nrows, ncols)) {
-      break
-    }
-
-    while(grid[next_pos] == "#") {
-      dir_num <- next_dir_num(dirs, dir_num)
-      next_pos <- pos + dir
-
-      if (out_of_bounds(next_pos, nrows, ncols)) {
-        break
-      }
-
-      sethash(visited, pos, c(gethash(visited, pos), dir))
-    }
-
-    pos <- next_pos
-  }
-
-  return(FALSE)
-}
-
-next_dir_num <- function(dirs, dir_num) {
-  if (dir_num == length(dirs)) {
-    return(1)
-  }
-
-  dir_num + 1
-}
-
