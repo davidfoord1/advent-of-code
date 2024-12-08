@@ -38,16 +38,34 @@ solve_day8_part1 <- function(input) {
   sum(inbounds)
 }
 
-find_antinodes <- function(nodes) {
-  # for each node before the last
-  # find the distance between it and the following nodes
+#' Find all antinode locations for one frequency
+#'
+#' For each antenna before the last: find the distance between it and the
+#' following antennas in the list in pairs. Move that distance away from each
+#' node in the pair and you have the location of an antinode.
+#'
+#' Taking the distance as second position - first position, subtract the
+#' distance from the first position and add it to the second.
+#'
+#' So for antennas at (3, 3) and (5, 5).
+#' Distance = (5, 5) - (3, 3) = (2, 2)
+#' Antinodes are (3, 3) - (2, 2) = (1, 1) and (5, 5) + (2, 2), = (7, 7)
+#'
+#' @param antennas
+#' A list of numeric(2), every position of an antenna of one frequency
+#'
+#' @return
+#' A list of numeric(2), every position of antinodes for the given `antennas`
+find_antinodes <- function(antennas) {
   antinodes <- vector("list")
 
-  for (i in 1:(length(nodes) - 1)) {
-    for (j in (i+1):length(nodes)) {
-      pos1 <- nodes[[i]]
-      pos2 <- nodes[[j]]
+  for (i in 1:(length(antennas) - 1)) {
+    for (j in (i+1):length(antennas)) {
+      pos1 <- antennas[[i]]
+      pos2 <- antennas[[j]]
+
       dist <- pos2 - pos1
+
       new_pos1 <- pos1 - dist
       new_pos2 <- pos2 + dist
 
@@ -58,6 +76,20 @@ find_antinodes <- function(nodes) {
   antinodes
 }
 
+#' Check whether a position out of grid boundaries
+#'
+#' Given a position (row, col), return TRUE when either are less than 1 and
+#' greater than their respective limits.
+#'
+#' @param pos
+#' numeric(2) or list(numeric(2)) to check is within bounds
+#' @param nrows
+#' numeric(1) row limit
+#' @param ncols
+#' numeric(1) col limit
+#'
+#' @return
+#' logical(1) Whether the position is out of bounds
 out_of_bounds <- function(pos, nrows, ncols) {
   pos <- unlist(pos)
   pos[[1]] <= 0 || pos[[1]] > nrows ||
