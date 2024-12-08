@@ -2,97 +2,74 @@ solve_day6_part2 <- function(input) {
   grid <- t(matrix(unlist(strsplit(input, "")), nrow = length(input)))
 
   pos <- which(grid == "^", arr.ind = TRUE)
+  nrows <- NROW(grid)
+  ncols <- NCOL(grid)
 
   # directions in sequence of right-hand 90 degree turns
-  # UP RIGHT DOWN LEFT
+  # UP RIGHT DON LEFT
   dirs <- list(c(-1, 0), c(0, 1), c(1, 0), c(0, -1))
   dir_num <- 1
 
-  visited <- matrix(FALSE, nrow = NROW(grid), ncol = NCOL(grid))
+  visited <- matrix(FALSE, nrow = nrows, ncol = ncols)
+  obstr_count <- 0
 
   repeat {
-    if (visited[pos] == FALSE) {
-      visited[pos] <- TRUE
+    # store direction for loop detection
+    if (visited[pos] == 0) {
+      visited[pos] <- dir_num
     }
 
     next_pos <- pos + dirs[[dir_num]]
     # stop when out of bounds
-    if (next_pos[[1]] > NROW(grid) | next_pos[[2]] > NCOL(grid)) {
+    if (next_pos[[1]] > NROW(grid) || next_pos[[2]] > NCOL(grid)
+        || next_pos[[1]] <= 0 || next_pos[[2]] == 0) {
+      break
+    }
+
+    # turn when meet an obstacle
+    if (grid[next_pos] == "#") {
+      # cycle dirs
+      dir_num <- next_dir_num(dirs, dir_num)
+    } else {
+      # try obstacle when haven't met an obstacle
+      if (visited[next_pos] == 0) {
+        obstr_count <- obstr_count + has_loop(grid, pos,
+                                              dirs, dir_num,
+                                              nrows, ncols)
+      }
+
+      pos <- next_pos
+    }
+  }
+
+  obstr_count
+}
+
+has_loop <- function(grid, pos, dirs, dir_num, nrow_grid, ncol_grid) {
+  grid[pos + dirs[[dir_num]]] <- "#"
+  dir_num <- (dir_num %% length(dirs)) + 1  # Turn 90 degrees
+
+  # 3D array for visited positions and directions
+  been <- array(FALSE, dim = c(nrow_grid, ncol_grid, length(dirs)))
+
+  repeat {
+    if (been[pos[[1]], pos[[2]], dir_num]) {
+      return(TRUE)  # Loop detected
+    }
+    been[pos[[1]], pos[[2]], dir_num] <- TRUE
+
+    next_pos <- pos + dirs[[dir_num]]
+    if (next_pos[[1]] > nrow_grid || next_pos[[2]] > ncol_grid ||
+        next_pos[[1]] <= 0 || next_pos[[2]] <= 0) {
       break
     }
 
     if (grid[next_pos] == "#") {
-      # cycle dirs
-      dir_num <- dir_num + 1
-
-      if (dir_num > length(dirs)) {
-        dir_num <-  1
-      }
+      dir_num <- (dir_num %% length(dirs)) + 1  # Turn
     } else {
       pos <- next_pos
     }
   }
 
-  visited <- which(visited)
-  # don't try the start position
-  visited <- visited[visited != which(grid == "^")]
-
-  has_loop <- logical(length(visited))
-
-  for (i in seq_along(visited)) {
-    has_loop[[i]] <- try_loop(visited[[i]], grid, dirs)
-    print(sum(has_loop))
-  }
-
-  grid[visited[has_loop]] <- "O"
-
-  sum(has_loop)
-}
-
-try_loop <- function(obs_pos, grid, dirs, dir_num = 1) {
-  grid[obs_pos] <- "#"
-  nrows <- NROW(grid)
-  ncols <- NCOL(grid)
-
-  start_pos <- which(grid == "^", arr.ind = TRUE)
-  pos <- start_pos
-
-  visited <- new.env()
-
-  repeat {
-    pos_name <- paste0(pos, collapse = ",")
-
-    if (dir_num %in% visited[[pos_name]]) {
-      return(TRUE)
-    }
-
-    visited[[pos_name]] <- c(visited[[pos_name]], dir_num)
-
-    next_pos <- pos + dirs[[dir_num]]
-
-    if (out_of_bounds(next_pos, nrows, ncols)) {
-      break
-    }
-
-    while(grid[next_pos] == "#") {
-      dir_num <- next_dir_num(dirs, dir_num)
-      # visited[[pos_name]] <- c(visited[[pos_name]], dir_num)
-      next_pos <- pos + dirs[[dir_num]]
-    }
-
-    # if (try_loop(grid, pos, next_pos, dir)) {
-    #   obstr_count <- obstr_count + 1
-    #   print(obstr_count)
-    # }
-
-    pos <- next_pos
-  }
-
   FALSE
-}
-
-
-out_of_bounds <- function(pos, nrows, ncols) {
-  pos[[1]] <= 0 || pos[[1]] > nrows ||
-    pos[[2]] <= 0 || pos[[2]] > ncols
 }
