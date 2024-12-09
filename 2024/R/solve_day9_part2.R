@@ -53,15 +53,14 @@ solve_day9_part2 <- function(input) {
     file_end <- file_ends[[file]]
     file_len <- file_lens[[file]]
 
+    spaces[["lens"]][spaces[["starts"]] >= file_end] <- 0L
     # find space before the block and of sufficient length
-    valid_spaces <- which(spaces[["starts"]] <= file_end &
-                           spaces[["lens"]] >= file_len)
+    valid_space <- match(TRUE, spaces[["lens"]] >= file_len)
 
-    if (length(valid_spaces) > 0) {
-      valid_space <- valid_spaces[[1L]]
+    if (!is.na(valid_space)) {
 
       space_start <- spaces[["starts"]][valid_space]
-      space_len <-  spaces[["lens"]][valid_space]
+      space_len <- spaces[["lens"]][valid_space]
 
       # move file to space
       disk[space_start:(space_start + file_len - 1L)] <- file_vals[[file]]
@@ -71,12 +70,12 @@ solve_day9_part2 <- function(input) {
       spaces[["lens"]][valid_space] <- new_len
 
       if (new_len > 0L) {
-        spaces[["starts"]][valid_space] <-
-          spaces[["starts"]][valid_space] + file_len
+        spaces[["starts"]][valid_space] <- space_start + file_len
       }
 
       # write space to old file location
       disk[file_end:(file_end - file_len + 1L)] <- "."
+
     }
 
   }
