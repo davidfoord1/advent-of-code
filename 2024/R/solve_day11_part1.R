@@ -9,6 +9,17 @@ solve_day11_part1 <- function(input, blinks = 25L) {
   length(all_stones[[blinks+1L]])
 }
 
+#' Apply *change* to stone
+#'
+#'    0 becomes 1
+#'    numbers with an even number of digits split in half
+#'    everything else gets multiplied by 2024
+#'
+#' @param stone
+#' numeric(1) Number to apply rules to
+#'
+#' @return
+#' numeric(1) Number resulting from application of rules to `stone`
 next_stone <- function(stone) {
   stopifnot(is.numeric(stone))
 

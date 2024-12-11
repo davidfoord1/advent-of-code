@@ -1,17 +1,13 @@
 #' Find the number of stones after many changes
 #'
 #' Given a set of stones with numbers on them, for the number of times specified
-#' by `blinks`, apply the following rules:
-#'
-#'    0 becomes 1
-#'    numbers with an even number of digits split in half
-#'    everything else gets multiplied by 2024
+#' by `blinks`, apply a set of rules for how they will change
 #'
 #' Because we will end up with many stones having the same number, instead of
 #' tracking each number individually, store a frequency table/hash map of counts
 #' of each number.
 #'
-#' Return the final count
+#' Return the final count.
 #'
 #' @param input
 #' String of numbers (on stones)
@@ -52,13 +48,24 @@ solve_day11_part2 <- function(input, blinks = 75L) {
   sum(stone_counts)
 }
 
+#' Apply *change* to stone
+#'
+#'    0 becomes 1
+#'    numbers with an even number of digits split in half
+#'    everything else gets multiplied by 2024
+#'
+#' @param stone
+#' numeric(1) Number to apply rules to
+#'
+#' @return
+#' numeric(1) Number resulting from application of rules to `stone`
 next_stone <- function(stone) {
   if (stone == 0) {
     return(1)
   }
 
   chars <- nchar(stone)
-
+  # even number of digits
   if (chars %% 2L == 0L) {
     half = chars / 2L
 
@@ -67,5 +74,5 @@ next_stone <- function(stone) {
     return(as.double(c(stone1, stone2)))
   }
 
-  as.double(stone) * 2024
+  stone * 2024
 }
