@@ -1,12 +1,29 @@
+#' Find the number of stones after many changes
+#'
+#' Given a set of stones with numbers on them, for the number of times specified
+#' by `blinks`, apply a set of rules for how they will change
+#'
+#' Because we will end up with many stones having the same number, instead of
+#' tracking each number individually, store a frequency table/hash map of counts
+#' of each number.
+#'
+#' Return the final count.
+#'
+#' @param input
+#' String of numbers (on stones)
+#' @param blinks
+#' Number of iterations to apply rules to each number
+#'
+#' @return
+#' numeric(1) The number of stones after `blinks` iterations
 solve_day11_part1 <- function(input, blinks = 25L) {
-  all_stones <- vector("list", blinks+1L)
-  all_stones[[1L]] <- as.numeric(unlist(strsplit(input, " ")))
+  stones <- as.numeric(unlist(strsplit(input, " ")))
 
-  for (i in 2L:(blinks+1L)) {
-    all_stones[[i]] <- unlist(lapply(all_stones[[i-1]], next_stone))
+  for (i in 1L:(blinks)) {
+    stones <- unlist(lapply(stones, next_stone))
   }
 
-  length(all_stones[[blinks+1L]])
+  length(stones)
 }
 
 #' Apply *change* to stone
