@@ -1,20 +1,43 @@
+#' Find the number of stones after many changes
+#'
+#' Given a set of stones with numbers on them, for the number of times specified
+#' by `blinks`, apply the following rules:
+#'
+#'    0 becomes 1
+#'    numbers with an even number of digits split in half
+#'    everything else gets multiplied by 2024
+#'
+#' Because we will end up with many stones having the same number, instead of
+#' tracking each number individually, store a frequency table/hash map of counts
+#' of each number.
+#'
+#' Return the final count
+#'
+#' @param input
+#' String of numbers (on stones)
+#' @param blinks
+#' Number of iterations to apply rules to each number
+#'
+#' @return
+#' numeric(1) The number of stones after `blinks` iterations
 solve_day11_part2 <- function(input, blinks = 75L) {
-  # Convert input into a named numeric vector where names are unique stones and values are counts
-  initial_stones <- as.numeric(unlist(strsplit(input, " ")))
+  initial_stones <- as.double(unlist(strsplit(input, " ")))
   stone_counts <- table(initial_stones)
 
   for (i in 1L:blinks) {
-    print(i)
-    # Create a new table to hold updated counts
-    new_counts <- numeric()
+    # environment as hash table
+    new_counts <- new.env(parent = emptyenv())
 
     for (stone in names(stone_counts)) {
-      count <- stone_counts[[stone]]
+      # apply the rules
       results <- next_stone(as.numeric(stone))
       results <- as.character(results)
 
+      # need to specify as double because integers (32-bit) may overflow
+      count <- as.double(stone_counts[[stone]])
+
       for (result in results) {
-        if (result %in% names(new_counts)) {
+        if (exists(result, envir = new_counts, inherits = FALSE)) {
           new_counts[[result]] <- new_counts[[result]] + count
         } else {
           new_counts[[result]] <- count
@@ -22,17 +45,16 @@ solve_day11_part2 <- function(input, blinks = 75L) {
       }
     }
 
-    # Update stone counts with new counts
-    stone_counts <- new_counts
+    # convert environment back to vector for next iteration
+    stone_counts <- unlist(as.list(new_counts), use.names = TRUE)
   }
 
-  # Sum of counts gives the total number of stones
   sum(stone_counts)
 }
 
 next_stone <- function(stone) {
-  if (stone == 0L) {
-    return(1L)
+  if (stone == 0) {
+    return(1)
   }
 
   chars <- nchar(stone)
@@ -42,8 +64,8 @@ next_stone <- function(stone) {
 
     stone1 <- substring(stone, 1L, half)
     stone2 <- substring(stone, (half+1L), chars)
-    return(as.numeric(c(stone1, stone2)))
+    return(as.double(c(stone1, stone2)))
   }
 
-  as.numeric(stone) * 2024L
+  as.double(stone) * 2024
 }
