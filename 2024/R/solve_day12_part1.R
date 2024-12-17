@@ -14,9 +14,9 @@
 #' @return
 #' numeric(1) Total fence price
 solve_day12_part1 <- function(input) {
-  nrows <- length(input)
+  nrows <<- length(input)
   grid <- matrix(unlist(strsplit(input, "")), nrow = nrows, byrow = TRUE)
-  ncols <- NCOL(grid)
+  ncols <<- NCOL(grid)
 
   # global store of visited plots
   plots <<- matrix(0L, nrows, ncols)
@@ -28,7 +28,7 @@ solve_day12_part1 <- function(input) {
       # if we find a plant not in plots
       if (plots[i, j] == 0L) {
         # start a search to build the plot
-        results[[plot_no]] <- find_plot(i, j, plot_no)
+        results[[plot_no]] <- find_plot(i, j, plot_no, grid)
         plot_no <- plot_no + 1L
       }
     }
@@ -60,7 +60,7 @@ solve_day12_part1 <- function(input) {
 #'
 #' @return
 #' numeric(2) Total area and total perimeter for the group from this point
-find_plot <- function(i, j, plot_no) {
+find_plot <- function(i, j, plot_no, grid) {
   plant <- grid[i, j]
   plots[i, j] <<- plot_no
 
@@ -88,7 +88,7 @@ find_plot <- function(i, j, plot_no) {
 
     # continue the search if we haven't been to that plant yet
     if (plots[adj_row, adj_col] == 0L) {
-      sub_totals[[index]] <- find_plot(adj_row, adj_col, plot_no)
+      sub_totals[[index]] <- find_plot(adj_row, adj_col, plot_no, grid)
     }
   }
 

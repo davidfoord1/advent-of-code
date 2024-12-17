@@ -5,8 +5,8 @@ solve_day10_part1 <- function(input) {
     as.integer() |>
     matrix(nrow = length(input), byrow = TRUE)
 
-  nrows <- NROW(grid)
-  ncols <- NCOL(grid)
+  nrows <<- NROW(grid)
+  ncols <<- NCOL(grid)
 
   trailheads <- which(grid == 0L, arr.ind = TRUE)
 
