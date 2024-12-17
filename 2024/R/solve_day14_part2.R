@@ -25,9 +25,9 @@ solve_day14_part2 <- function(input) {
         y <- bots[row, "y_pos"]
         grid[x, y] <- 1L
       }
-      png(filename)
-      image(grid)
-      dev.off()
+      # png(filename)
+      # image(grid)
+      # dev.off()
 
     }
   }

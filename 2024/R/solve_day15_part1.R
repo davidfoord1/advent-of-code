@@ -13,19 +13,19 @@ solve_day15_part1 <- function(input) {
                "v" = c(1L, 0L),
                "<" = c(0L, -1L))
 
-  final_grid <- Reduce(move_bot, moves, init = grid)
+  final_grid <- Reduce(\(x, y) move_bot(x, y, dirs),
+                       moves,
+                       init = grid)
 
   gps_sum(final_grid)
 }
 
-move_bot <- function(grid, move) {
+move_bot <- function(grid, move, dirs) {
   bot_pos <- which(grid == "@", arr.ind = TRUE)
 
   dir <- dirs[[move]]
-  stopifnot(!is.null(dir))
   next_pos <- bot_pos + dir
   next_tile <- grid[next_pos]
-  stopifnot(!is.null(next_tile))
 
   if (next_tile == "#") {
     return(grid)
@@ -64,6 +64,7 @@ push_boxes <- function(grid, bot_pos, dir) {
   for (pos in box_chain) {
     grid[pos + dir] <- "O"
   }
+
 
   grid[bot_pos + dir] <- "@"
   grid[bot_pos] <- "."

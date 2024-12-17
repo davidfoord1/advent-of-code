@@ -2,7 +2,7 @@ solve_day15_part2 <- function(input) {
   move_start <- which.max(grepl("<", input))
 
   grid <- input[1L:(move_start-2L)]
-  nrows <- length(grid)
+  nrows <<- length(grid)
   grid <- matrix(unlist(strsplit(grid, "")), nrow = nrows, byrow = TRUE)
 
   # expand grid
@@ -16,12 +16,12 @@ solve_day15_part2 <- function(input) {
                "v" = c(1L, 0L),
                "<" = c(0L, -1L))
 
-  final_grid <- Reduce(move_bot, moves, init = grid)
+  final_grid <- Reduce(\(x, y) move_bot(x, y, dirs), moves, init = grid)
 
   gps_sum(final_grid)
 }
 
-move_bot <- function(grid, move) {
+move_bot <- function(grid, move, dirs) {
   bot_pos <- which(grid == "@", arr.ind = TRUE)
 
   dir <- dirs[[move]]

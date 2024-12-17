@@ -21,9 +21,6 @@ solve_day14_part1 <- function(input) {
   bots_per_quad <- table(bots[["quad"]])
 
   Reduce(`*`, bots_per_quad)
-
-  # 220086360 too high
-  # 216027840
 }
 
 #' Title
