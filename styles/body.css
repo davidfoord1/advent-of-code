@@ -13,9 +13,24 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
-  margin-top: 10pt;
+  margin-top: 5pt;
 }
 
 span.star {
   color: #ffff66;
+}
+
+#quarto-back-to-top {
+  color: #eeeeee;
+  font-size: 14pt;
+}
+
+.tab-content {
+  padding-top: 0px;
+}
+
+p {
+  padding-top: 8px;
+  font-size: 14pt;
+  font-family: "Cascadia Code Light";
 }

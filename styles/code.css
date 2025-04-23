@@ -27,7 +27,7 @@ code span.fu, code span.bu {
 
 /* Keywords */
 code span.kw, code span.cf {
-  color: #9999cc;
+  color: #aa88ee;
   font-weight: normal;
 }
 
@@ -42,7 +42,7 @@ code span.st, code span.str {
 }
 
 /* Numeric/logical */
-code span.fl, code span.cn {
+code span.fl, code span.cn, code span.dv {
   color: #e3b585;
 }
 

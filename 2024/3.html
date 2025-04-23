@@ -119,7 +119,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">2023</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../2024/1.html" aria-current="page"> 
+    <a class="nav-link" href="../2024/1.html"> 
 <span class="menu-text">2024</span></a>
   </li>  
 </ul>
@@ -172,192 +172,207 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="tab-content language-set">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<section id="r-day-1-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-1-part-1">— R Day 1 Part 1 —</h3>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#' Compare the differences between 2 lists</span></span>
+<section id="r-day-3-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-3-part-1">— R Day 3 Part 1 —</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#' Sum of multiplications</span></span>
 <span><span class="co">#'</span></span>
-<span><span class="co">#' A friendly opener! We parse the input text as 2 lists of numbers and sort</span></span>
-<span><span class="co">#' them. Then we take the sum of the absolute differences between pairs.</span></span>
-<span><span class="co">#'</span></span>
-<span><span class="co">#' @param input</span></span>
-<span><span class="co">#' A character vector with 2 numbers per string</span></span>
-<span><span class="co">#'</span></span>
-<span><span class="co">#' @return</span></span>
-<span><span class="co">#' The sum of absolute differences between the sorted lists</span></span>
-<span><span class="va">solve_day1_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># extract to 2 vectors for ease of operations</span></span>
-<span>  <span class="va">lists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">" +"</span><span class="op">)</span></span>
-<span>  <span class="va">first_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">lists</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="va">second_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">lists</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># sort so that we pair up the smallest number in the left list with the</span></span>
-<span>  <span class="co"># smallest number in the right list etc.</span></span>
-<span>  <span class="va">first_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">first_list</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">second_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">second_list</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co"># we want the absolute distance</span></span>
-<span>  <span class="co"># it doesn't matter which list has the larger number</span></span>
-<span>  <span class="va">distances</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">second_list</span> <span class="op">-</span> <span class="va">first_list</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">distances</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day1_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.008 seconds
-Memory:  71 KB</code></pre>
-</div>
-</div>
-</section><section id="r-day-1-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-1-part-2">— R Day 1 Part 2 —</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#' Score the similarities between 2 lists</span></span>
-<span><span class="co">#'</span></span>
-<span><span class="co">#' Parse the input text as 2 lists of numbers. Count the number of occurrences</span></span>
-<span><span class="co">#' of each item in the first list in the second list. Multiply each number by</span></span>
-<span><span class="co">#' its count to get the similarity score. Finally sum the score.</span></span>
-<span><span class="co">#'</span></span>
-<span><span class="co">#' To count I used the sum of equality between each number in the second</span></span>
-<span><span class="co">#' list and the number being counted from the first list.</span></span>
+<span><span class="co">#' Uses regex to find numbers in format mul(x, y). Multiplies each pair and</span></span>
+<span><span class="co">#' adds the results together.</span></span>
 <span><span class="co">#'</span></span>
 <span><span class="co">#' @param input</span></span>
-<span><span class="co">#' A character vector with 2 numbers per string</span></span>
+<span><span class="co">#' Character vector of lines to parse for numbers to multiply.</span></span>
 <span><span class="co">#'</span></span>
 <span><span class="co">#' @return</span></span>
-<span><span class="co">#' The sum of absolute differences between the sorted lists</span></span>
-<span><span class="va">solve_day1_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># extract to 2 vectors for ease of operations</span></span>
-<span>  <span class="va">lists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">" +"</span><span class="op">)</span></span>
-<span>  <span class="va">first_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">lists</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="va">second_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">lists</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#' The sum of results of multiplications</span></span>
+<span><span class="va">solve_day3_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">input</span>,</span>
+<span>                                          <span class="st">"(?&lt;=mul\\()[0-9]+,[0-9]+(?=\\))"</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">first_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">first_list</span><span class="op">)</span></span>
-<span>  <span class="va">second_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">second_list</span><span class="op">)</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">muls</span><span class="op">)</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">muls</span>, <span class="st">","</span><span class="op">)</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_transpose.html">list_transpose</a></span><span class="op">(</span><span class="va">muls</span><span class="op">)</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">muls</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="co"># This time we need to count how many times a number in the first list</span></span>
-<span>  <span class="co"># occurs in the second list. We can do that as the sum of logical equality</span></span>
-<span>  <span class="co"># between each number in the second list and the number being counted from</span></span>
-<span>  <span class="co"># the first list.</span></span>
-<span>  <span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">first_list</span>, \<span class="op">(</span><span class="va">num</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">second_list</span> <span class="op">==</span> <span class="va">num</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">similarity_scores</span> <span class="op">&lt;-</span> <span class="va">first_list</span> <span class="op">*</span> <span class="va">counts</span></span>
-<span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">similarity_scores</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">muls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="va">muls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span>, part <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day1_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day3_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.008 seconds
-Memory:  4067 KB</code></pre>
+<pre><code>Elapsed: 0.012 seconds
+Memory:  1110 KB</code></pre>
+</div>
+</div>
+</section><section id="r-day-3-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-3-part-2">— R Day 3 Part 2 —</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#' Sum of enabled multiplications</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' Add do() to the start of the input. Uses regex to split the input on do() and</span></span>
+<span><span class="co">#' don't(), removing all the sections that start with don't(). Then find the sum</span></span>
+<span><span class="co">#' of multiplying remaining pairs.</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @param input</span></span>
+<span><span class="co">#' Character vector of lines to parse for numbers to multiply.</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @return</span></span>
+<span><span class="co">#' The sum of results of enabled multiplications</span></span>
+<span><span class="va">solve_day3_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">line</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">input</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>  <span class="va">line</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"do()"</span>, <span class="va">line</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">split</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_split.html">stri_split_regex</a></span><span class="op">(</span><span class="va">line</span>, <span class="st">"(?=do\\(\\))|(?=don't\\(\\))"</span><span class="op">)</span></span>
+<span>  <span class="va">split</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">split</span><span class="op">)</span></span>
+<span>  <span class="va">split</span> <span class="op">&lt;-</span> <span class="va">split</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substring</a></span><span class="op">(</span><span class="va">split</span>, <span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">==</span> <span class="st">"do()"</span><span class="op">]</span></span>
+<span></span>
+<span>  <span class="va">mul_sums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">split</span>, <span class="va">sum_muls</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">mul_sums</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#' Sum of multiplications</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' Same as part 1 solution. Uses regex to find numbers in format mul(x, y).</span></span>
+<span><span class="co">#' Multiplies each pair and adds the results together.</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @param input</span></span>
+<span><span class="co">#' Character vector of lines to parse for numbers to multiply.</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @return</span></span>
+<span><span class="co">#' The sum of results of multiplications</span></span>
+<span><span class="va">sum_muls</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">section</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">section</span>,</span>
+<span>                                          <span class="st">"(?&lt;=mul\\()[0-9]+,[0-9]+(?=\\))"</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">muls</span><span class="op">)</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">muls</span><span class="op">)</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">muls</span>, <span class="st">","</span><span class="op">)</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_transpose.html">list_transpose</a></span><span class="op">(</span><span class="va">muls</span><span class="op">)</span></span>
+<span>  <span class="va">muls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">muls</span>, <span class="va">as.numeric</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">muls</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">*</span> <span class="va">muls</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span>, part <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day3_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Elapsed: 0.016 seconds
+Memory:  142 KB</code></pre>
 </div>
 </div>
 </section>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<section id="python-day-1-part-1" class="level3"><h3 class="anchored" data-anchor-id="python-day-1-part-1">— Python Day 1 Part 1 —</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day1_part1(text):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Compare the differences between 2 lists</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Parse the input text as 2 lists of numbers and sort </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">  them. Then take the sum of the absolute differences between pairs.</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">  I imagine it's not too 'pythonic' even for such a simple puzzle. In porting</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">  my R solution with the limited Python that I know, lapply has become list </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">  comprehensions and I've used a for loop to iterate over the 2 lists instead</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">  of a vectorised comparison. Perhaps NumPy could help out there?</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">  text : list of str</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">      Where each string contains a number in the first list and a the second </span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">      list.</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">  -------</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">  int</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">      The sum of absolute differences between the sorted lists</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract to 2 lists of integers for ease of operations</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  lines <span class="op">=</span> [line.split() <span class="cf">for</span> line <span class="kw">in</span> text]</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  first_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">0</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  second_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">1</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sort so that we pair up the smallest number in the left list with the</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># smallest number in the right list etc.</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  first_list.sort()</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  second_list.sort()</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  distances <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> <span class="bu">len</span>(first_list)</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we want the absolute distance</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># it doesn't matter which list has the larger number</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(first_list)):</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    distances[i] <span class="op">=</span> <span class="bu">abs</span>(second_list[i] <span class="op">-</span> first_list[i])</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="bu">sum</span>(distances))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="python-day-3-part-1" class="level3"><h3 class="anchored" data-anchor-id="python-day-3-part-1">— Python Day 3 Part 1 —</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day3_part1(text):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Sum of multiplications</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">  Uses regex to find numbers in format mul(x, y). Multiplies each pair and</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">  adds the results together.</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">  text : list of str</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Lines to parse for numbers to multiply.</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">      </span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">  -------</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">  int</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">    The sum of results of multiplications</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [re.findall(<span class="st">"(?&lt;=mul\()[0-9]+,[0-9]+(?=\))"</span>, line) <span class="cf">for</span> line <span class="kw">in</span> text]</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [pair <span class="cf">for</span> line <span class="kw">in</span> muls <span class="cf">for</span> pair <span class="kw">in</span> line] </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [pair.split(<span class="st">","</span>) <span class="cf">for</span> pair <span class="kw">in</span> muls]</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [[<span class="bu">int</span>(num) <span class="cf">for</span> num <span class="kw">in</span> pair] <span class="cf">for</span> pair <span class="kw">in</span> muls]</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [pair[<span class="dv">0</span>] <span class="op">*</span> pair[<span class="dv">1</span>] <span class="cf">for</span> pair <span class="kw">in</span> muls]</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="bu">sum</span>(muls))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">1</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
+<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">3</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day1_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day3_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Elapsed: 0.005 seconds
-Memory:  377 KB</code></pre>
+Memory:  286 KB</code></pre>
 </div>
 </div>
-</section><section id="python-day-1-part-2" class="level3"><h3 class="anchored" data-anchor-id="python-day-1-part-2">— Python Day 1 Part 2 —</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day1_part2(text):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Score the similarities between 2 lists</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Parse the input text as 2 lists of numbers. Count the number of occurrences </span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">  of each item in the first list in the second list. Multiply each number by</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">  its count to get the similarity score. Finally sum the score.</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">  The list count method made this one fairly easy. Again I imagine there is a</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">  slightly slicker way then using a for loop, but not bad to have the basics!</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">  text : list of str</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">      Where each string contains a number in the first list and a the second </span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">      list.</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">  -------</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">  int</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">      The sum of absolute differences between the sorted lists</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract to 2 lists of integers for ease of operations</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  lines <span class="op">=</span> [line.split() <span class="cf">for</span> line <span class="kw">in</span> text]</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  first_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">0</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  second_list <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">1</span>]) <span class="cf">for</span> line <span class="kw">in</span> lines]</span>
+</section><section id="python-day-3-part-2" class="level3"><h3 class="anchored" data-anchor-id="python-day-3-part-2">— Python Day 3 Part 2 —</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day3_part2(text):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">  Sum of enabled multiplications</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">  Add do() to the start of the input. Uses regex to split the input on do() and</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">  don't(), removing all the sections that start with don't(). Then find the sum</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">  of multiplying remaining pairs.</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">  text : list of str</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Lines to parse for numbers to multiply.</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">      </span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">  -------</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">  int</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">    The sum of results of enabled multiplications</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  line <span class="op">=</span> <span class="st">""</span>.join(text)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  line <span class="op">=</span> <span class="st">"do()"</span> <span class="op">+</span> line</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  splits <span class="op">=</span> re.split(<span class="st">"(?=do\(\))|(?=don't\(\))"</span>, line)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  splits <span class="op">=</span> [line <span class="cf">for</span> line <span class="kw">in</span> splits <span class="cf">if</span> line[<span class="dv">0</span>:<span class="dv">5</span>] <span class="op">!=</span> <span class="st">"don't"</span>]</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  mul_sums <span class="op">=</span> [sum_muls(line) <span class="cf">for</span> line <span class="kw">in</span> splits]</span>
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  counts <span class="op">=</span> [second_list.count(num) <span class="cf">for</span> num <span class="kw">in</span> first_list]</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="bu">sum</span>(mul_sums))</span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  similarity_scores <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> <span class="bu">len</span>(first_list)</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(first_list)):</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    similarity_scores[i] <span class="op">=</span> first_list[i] <span class="op">*</span> counts[i]</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="bu">sum</span>(similarity_scores))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sum_muls(section):</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co">  Sum of multiplications</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co">  Uses regex to find numbers in format mul(x, y). Multiplies each pair and</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co">  adds the results together.</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="co">  Parameters</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co">  ----------</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a><span class="co">  section : list of str</span></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="co">    Lines to parse for numbers to multiply.</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="co">      </span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="co">  -------</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co">  int</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co">    The sum of results of multiplications</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> re.findall(<span class="st">"(?&lt;=mul\()[0-9]+,[0-9]+(?=\))"</span>, section)</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">len</span>(muls) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(<span class="dv">0</span>)</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [pair.split(<span class="st">","</span>) <span class="cf">for</span> pair <span class="kw">in</span> muls]</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [[<span class="bu">int</span>(num) <span class="cf">for</span> num <span class="kw">in</span> pair] <span class="cf">for</span> pair <span class="kw">in</span> muls]</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>  muls <span class="op">=</span> [pair[<span class="dv">0</span>] <span class="op">*</span> pair[<span class="dv">1</span>] <span class="cf">for</span> pair <span class="kw">in</span> muls]</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="bu">sum</span>(muls))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">1</span>, part <span class="op">=</span> <span class="dv">2</span>)</span>
+<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">3</span>, part <span class="op">=</span> <span class="dv">2</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day1_part2(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day3_part2(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.011 seconds
-Memory:  357 KB</code></pre>
+<pre><code>Elapsed: 0.004 seconds
+Memory:  52 KB</code></pre>
 </div>
 </div>
 </section>
