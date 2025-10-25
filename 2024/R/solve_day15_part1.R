@@ -2,7 +2,7 @@ solve_day15_part1 <- function(input) {
   move_start <- which.max(grepl("<", input))
 
   grid <- input[1L:(move_start-2L)]
-  nrows <- length(grid)
+  nrows <<- length(grid)
   grid <- matrix(unlist(strsplit(grid, "")), nrow = nrows, byrow = TRUE)
 
   moves <- input[move_start:length(input)]
