@@ -15,8 +15,8 @@ solve_day8_part1 <- function(input) {
   nrows <- NROW(grid)
   ncols <- NCOL(grid)
 
-  # lookup ttable
-  antennas <- new.env(paren = emptyenv())
+  # lookup table
+  antennas <- new.env(parent = emptyenv())
 
   # store each position for the same letter
   for (row in seq_len(NROW(grid))) {
