@@ -173,8 +173,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day16_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">nrows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span></span>
 <span>  <span class="va">maze</span> <span class="op">&lt;&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                 nrow <span class="op">=</span> <span class="va">nrows</span>,</span>
-<span>                 byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>                  nrow <span class="op">=</span> <span class="va">nrows</span>,</span>
+<span>                  byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
 <span>  <span class="va">ncols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NCOL</a></span><span class="op">(</span><span class="va">maze</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">maze</span> <span class="op">==</span> <span class="st">"S"</span>, arr.ind <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -182,19 +183,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="co"># N, E, S, W as 1, 2, 3, 4</span></span>
 <span>  <span class="va">dirs</span> <span class="op">&lt;&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1L</span>, <span class="fl">0L</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fl">1L</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">0L</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="op">-</span><span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="va">nrows</span> <span class="op">*</span> <span class="va">ncols</span><span class="op">)</span></span>
+<span>  <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">create_priority_queue</span><span class="op">(</span><span class="va">nrows</span> <span class="op">*</span> <span class="va">ncols</span><span class="op">)</span></span>
+<span></span>
 <span>  <span class="co"># store each position as pos[x, y], facing, cost</span></span>
 <span>  <span class="co"># starting with 2 for East and 0 cost:</span></span>
-<span>  <span class="va">cost_queue</span><span class="op">[</span><span class="fl">1L</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">start</span><span class="op">)</span>, <span class="fl">2L</span>, <span class="fl">0L</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_item</span><span class="op">(</span><span class="va">cost_queue</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="va">start</span>, facing <span class="op">=</span> <span class="fl">2L</span>, cost <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">free_ptr</span> <span class="op">&lt;-</span> <span class="fl">2L</span></span>
 <span>  <span class="va">min_cost_ptr</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span>
 <span></span>
 <span>  <span class="co"># visited 3D array with facing as 3rd dimension?</span></span>
 <span>  <span class="va">visited</span> <span class="op">&lt;&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html">array</a></span><span class="op">(</span><span class="cn">Inf</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">nrows</span>, <span class="va">ncols</span>, <span class="fl">4L</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">pos</span> <span class="op">&lt;-</span> <span class="va">cost_queue</span><span class="op">[[</span><span class="va">min_cost_ptr</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span>
-<span>  <span class="va">facing</span> <span class="op">&lt;-</span> <span class="va">cost_queue</span><span class="op">[[</span><span class="va">min_cost_ptr</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2L</span><span class="op">]</span><span class="op">]</span></span>
-<span>  <span class="va">cost</span> <span class="op">&lt;-</span> <span class="va">cost_queue</span><span class="op">[[</span><span class="va">min_cost_ptr</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">3L</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">start</span> <span class="op">&lt;-</span> <span class="fu">read_min</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">pos</span> <span class="op">&lt;-</span> <span class="va">start</span><span class="op">[[</span><span class="st">"pos"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">facing</span> <span class="op">&lt;-</span> <span class="va">start</span><span class="op">[[</span><span class="st">"facing"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">cost</span> <span class="op">&lt;-</span> <span class="va">start</span><span class="op">[[</span><span class="st">"cost"</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span>  <span class="kw">while</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">pos</span> <span class="op">!=</span> <span class="va">end</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="co"># identify next possible positions and there costs</span></span>
@@ -203,33 +208,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="va">increase</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span>
 <span></span>
 <span>    <span class="co"># add to cost_queue and visited?</span></span>
-<span>    <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_pos</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">free_ptr</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span></span>
-<span>    <span class="va">free_ptr</span> <span class="op">&lt;-</span> <span class="fu">which_free</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
+<span>    <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_pos</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span></span>
 <span></span>
 <span>    <span class="co"># turns cost more</span></span>
 <span>    <span class="va">increase</span> <span class="op">&lt;-</span> <span class="fl">1000L</span></span>
 <span>    <span class="co"># 90 degrees clockwise</span></span>
 <span>    <span class="va">facing</span> <span class="op">&lt;-</span> <span class="va">facing</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">4L</span> <span class="op">+</span> <span class="fl">1L</span></span>
-<span>    <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_pos</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">free_ptr</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span></span>
-<span>    <span class="va">free_ptr</span> <span class="op">&lt;-</span> <span class="fu">which_free</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
+<span>    <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_pos</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span></span>
 <span></span>
 <span>    <span class="co"># 90 degrees anticlockwise (270 anticlockwise)</span></span>
 <span>    <span class="va">facing</span> <span class="op">&lt;-</span> <span class="va">facing</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">4L</span> <span class="op">+</span> <span class="fl">1L</span></span>
 <span>    <span class="va">facing</span> <span class="op">&lt;-</span> <span class="va">facing</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">4L</span> <span class="op">+</span> <span class="fl">1L</span></span>
-<span>    <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_pos</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">free_ptr</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span></span>
-<span>    <span class="va">free_ptr</span> <span class="op">&lt;-</span> <span class="fu">which_free</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
+<span>    <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_pos</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span></span>
 <span></span>
 <span>    <span class="co"># remove current item from queue</span></span>
-<span>    <span class="co"># TODO: stop shrinking the queue</span></span>
-<span>    <span class="va">cost_queue</span><span class="op">[</span><span class="va">min_cost_ptr</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span>    <span class="va">free_ptr</span> <span class="op">&lt;-</span> <span class="fu">which_free</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
+<span>    <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">remove_min</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
+<span>    <span class="va">next_min</span> <span class="op">&lt;-</span> <span class="fu">read_min</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
 <span></span>
-<span>    <span class="co"># find next position with lowest cost</span></span>
-<span>    <span class="va">min_cost_ptr</span> <span class="op">&lt;-</span> <span class="fu">which_min_cost</span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">pos</span> <span class="op">&lt;-</span> <span class="va">cost_queue</span><span class="op">[[</span><span class="va">min_cost_ptr</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="va">facing</span> <span class="op">&lt;-</span> <span class="va">cost_queue</span><span class="op">[[</span><span class="va">min_cost_ptr</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">2L</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="va">cost</span> <span class="op">&lt;-</span> <span class="va">cost_queue</span><span class="op">[[</span><span class="va">min_cost_ptr</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">3L</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">pos</span> <span class="op">&lt;-</span> <span class="va">next_min</span><span class="op">[[</span><span class="st">"pos"</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">facing</span> <span class="op">&lt;-</span> <span class="va">next_min</span><span class="op">[[</span><span class="st">"facing"</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">cost</span> <span class="op">&lt;-</span> <span class="va">next_min</span><span class="op">[[</span><span class="st">"cost"</span><span class="op">]</span><span class="op">]</span></span>
 <span>  <span class="op">}</span></span>
 <span></span>
 <span>  <span class="va">visited</span><span class="op">[</span><span class="va">pos</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span>, <span class="va">pos</span><span class="op">[[</span><span class="fl">2L</span><span class="op">]</span><span class="op">]</span>, <span class="va">facing</span><span class="op">]</span></span>
@@ -258,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">costs</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">add_pos</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">free_ptr</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="va">add_pos</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">cost_queue</span>, <span class="va">pos</span>, <span class="va">facing</span>, <span class="va">cost</span>, <span class="va">increase</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="kw">if</span> <span class="op">(</span><span class="va">increase</span> <span class="op">==</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">new_pos</span> <span class="op">&lt;-</span> <span class="va">pos</span> <span class="op">+</span> <span class="va">dirs</span><span class="op">[[</span><span class="va">facing</span><span class="op">]</span><span class="op">]</span></span>
 <span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
@@ -278,11 +276,94 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">cost_queue</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span></span>
-<span></span>
 <span>  <span class="va">visited</span><span class="op">[</span><span class="va">new_pos</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span>, <span class="va">new_pos</span><span class="op">[[</span><span class="fl">2L</span><span class="op">]</span><span class="op">]</span>, <span class="va">facing</span><span class="op">]</span> <span class="op">&lt;&lt;-</span> <span class="va">new_cost</span></span>
-<span>  <span class="va">cost_queue</span><span class="op">[</span><span class="va">free_ptr</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">new_pos</span><span class="op">)</span>, <span class="va">facing</span>, <span class="va">new_cost</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">cost_queue</span> <span class="op">&lt;-</span> <span class="fu">add_item</span><span class="op">(</span><span class="va">cost_queue</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="va">new_pos</span>, facing <span class="op">=</span> <span class="va">facing</span>, cost <span class="op">=</span> <span class="va">new_cost</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">cost_queue</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># binary heap implementation of cost queue</span></span>
+<span><span class="va">create_priority_queue</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">capacity</span> <span class="op">=</span> <span class="fl">100L</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>heap <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="va">capacity</span><span class="op">)</span>,</span>
+<span>       size <span class="op">=</span> <span class="fl">0L</span>, <span class="co"># actual number of elements</span></span>
+<span>       capacity <span class="op">=</span> <span class="va">capacity</span><span class="op">)</span> <span class="co"># maximum number of elements</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">add_item</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">queue</span>, <span class="va">element</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">size</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="st">"size"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">capacity</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="st">"capacity"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="co"># double queue capacity if at full capacity</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">size</span> <span class="op">==</span> <span class="va">capacity</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">queue</span><span class="op">[[</span><span class="st">"capacity"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">capacity</span> <span class="op">*</span> <span class="fl">2L</span></span>
+<span>    <span class="va">new_heap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="va">queue</span><span class="op">[[</span><span class="st">"capacity"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="va">new_heap</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">size</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">new_heap</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">new_size</span> <span class="op">&lt;-</span> <span class="va">size</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  <span class="va">queue</span><span class="op">[[</span><span class="st">"size"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">new_size</span></span>
+<span>  <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">new_size</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">element</span></span>
+<span></span>
+<span>  <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">new_size</span></span>
+<span>  <span class="kw">while</span><span class="op">(</span><span class="va">i</span> <span class="op">&gt;</span> <span class="fl">1</span> <span class="op">&amp;&amp;</span></span>
+<span>        <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"cost"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;</span></span>
+<span>        <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="va">i</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"cost"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">parent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="va">i</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">parent</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">parent</span>, <span class="va">i</span><span class="op">)</span><span class="op">]</span></span>
+<span>    <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">parent</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">queue</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">read_min</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">queue</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">size</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="st">"size"</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span>  <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">remove_min</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">queue</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">size</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="st">"size"</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">size</span> <span class="op">==</span> <span class="fl">0L</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html">stop</a></span><span class="op">(</span><span class="st">"Heap is empty"</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="co"># store element with smallest cost</span></span>
+<span>  <span class="co"># min_element &lt;- queue[["heap"]][[1L]]</span></span>
+<span>  <span class="co"># replace root with last element</span></span>
+<span>  <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1L</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">size</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="co"># clear last element</span></span>
+<span>  <span class="co"># we use list(NULL) instead of just NULL to preserve the heap reserved length</span></span>
+<span>  <span class="va">queue</span><span class="op">[[</span><span class="st">"heap"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="va">size</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span>  <span class="va">new_size</span> <span class="op">&lt;-</span> <span class="va">size</span> <span class="op">-</span><span class="fl">1L</span></span>
+<span>  <span class="va">queue</span><span class="op">[[</span><span class="st">"size"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">new_size</span></span>
+<span></span>
+<span>  <span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span>
+<span>  <span class="co"># bubble sort to maintain cost order</span></span>
+<span>  <span class="kw">repeat</span> <span class="op">{</span></span>
+<span>    <span class="va">left</span> <span class="op">&lt;-</span> <span class="fl">2L</span> <span class="op">*</span> <span class="va">i</span></span>
+<span>    <span class="va">right</span> <span class="op">&lt;-</span> <span class="fl">2L</span> <span class="op">*</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1L</span></span>
+<span>    <span class="va">smallest</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
+<span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">left</span> <span class="op">&lt;=</span> <span class="va">new_size</span> <span class="op">&amp;&amp;</span></span>
+<span>        <span class="va">queue</span><span class="op">$</span><span class="va">heap</span><span class="op">[[</span><span class="va">left</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">cost</span> <span class="op">&lt;</span> <span class="va">queue</span><span class="op">$</span><span class="va">heap</span><span class="op">[[</span><span class="va">smallest</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">cost</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">smallest</span> <span class="op">&lt;-</span> <span class="va">left</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">right</span> <span class="op">&lt;=</span> <span class="va">new_size</span> <span class="op">&amp;&amp;</span></span>
+<span>        <span class="va">queue</span><span class="op">$</span><span class="va">heap</span><span class="op">[[</span><span class="va">right</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">cost</span> <span class="op">&lt;</span> <span class="va">queue</span><span class="op">$</span><span class="va">heap</span><span class="op">[[</span><span class="va">smallest</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">cost</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">smallest</span> <span class="op">&lt;-</span> <span class="va">right</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">smallest</span> <span class="op">==</span> <span class="va">i</span> <span class="op">)</span> <span class="kw">break</span></span>
+<span></span>
+<span>    <span class="co"># swap</span></span>
+<span>    <span class="va">queue</span><span class="op">$</span><span class="va">heap</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">smallest</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">$</span><span class="va">heap</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">smallest</span>, <span class="va">i</span><span class="op">)</span><span class="op">]</span></span>
+<span>    <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">smallest</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">queue</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">16</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>

@@ -166,7 +166,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="../2024/1.html">Day 1</a> <a href="../2024/2.html">Day 2</a> <a href="../2024/3.html">Day 3</a> <a href="../2024/4.html">Day 4</a> <a href="../2024/5.html">Day 5</a> <a href="../2024/6.html">Day 6</a> <a href="../2024/7.html">Day 7</a> <a href="../2024/8.html">Day 8</a> <a href="../2024/9.html">Day 9</a> <a href="../2024/10.html">Day 10</a> <a href="../2024/11.html">Day 11</a> <a href="../2024/12.html">Day 12</a> <a href="../2024/13.html">Day 13</a> <a href="../2024/14.html">Day 14</a> <a href="../2024/15.html">Day 15</a> <a href="../2024/16.html">Day 16</a></p>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset language-set">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li></ul>
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li>
+</ul>
 <div class="tab-content language-set">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="r-day-4-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-4-part-1">— R Day 4 Part 1 —</h3>
@@ -344,6 +347,9945 @@ Memory:  1921 KB</code></pre>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Elapsed: 0.232 seconds
 Memory:  1079 KB</code></pre>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<section id="python-day-4-part-1" class="level3"><h3 class="anchored" data-anchor-id="python-day-4-part-1">— Python Day 4 Part 1 —</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day4_part1(text):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  xmas_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> line_no <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter_no <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text[line_no])):</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> text[line_no][letter_no] <span class="op">==</span> <span class="st">"X"</span>:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        xmas_count <span class="op">+=</span> find_xmas_from_x(text, line_no, letter_no)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(xmas_count)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_xmas_from_x(text, line_no, letter_no):</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  xmas_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># list of directions</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># [letter_no, line_no]</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  dir_list <span class="op">=</span> [</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], <span class="co"># LU</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>], <span class="co"># U</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], <span class="co"># RU</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>], <span class="co"># L</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">0</span>], <span class="co"># R</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>], <span class="co"># LD</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">1</span>], <span class="co"># D</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># RD</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  letters_to_find <span class="op">=</span> [<span class="st">"M"</span>, <span class="st">"A"</span>, <span class="st">"S"</span>]</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  line_max_index <span class="op">=</span> <span class="bu">len</span>(text) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  letter_max_index <span class="op">=</span> <span class="bu">len</span>(text[<span class="dv">1</span>]) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  letter_index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  line_index <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> search_dir <span class="kw">in</span> dir_list:</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    search_letter <span class="op">=</span> letter_no</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    search_line <span class="op">=</span> line_no</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> index <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(letters_to_find)):</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>      search_letter <span class="op">+=</span> search_dir[letter_index]</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>      search_line <span class="op">+=</span> search_dir[line_index]</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>      <span class="co"># skip out of bounds </span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> search_line <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> search_line <span class="op">&gt;</span> line_max_index:</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> search_letter <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> search_letter <span class="op">&gt;</span> letter_max_index:</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>      <span class="co"># word not found</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> text[search_line][search_letter] <span class="op">!=</span> letters_to_find[index]:</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>      <span class="co"># word found</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> letters_to_find[index] <span class="op">==</span> letters_to_find[<span class="bu">len</span>(letters_to_find) <span class="op">-</span> <span class="dv">1</span>]:</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        xmas_count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(xmas_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">4</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">4</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day4_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>2406
+Elapsed: 0.068 seconds
+Memory:  12 KB</code></pre>
+</div>
+</div>
+</section><section id="python-day-4-part-2" class="level3"><h3 class="anchored" data-anchor-id="python-day-4-part-2">— Python Day 4 Part 2 —</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day4_part2(text):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  x_mas_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> line_no <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text)):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter_no <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(text[line_no])):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> text[line_no][letter_no] <span class="op">==</span> <span class="st">"A"</span>:</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_cross_mass(text, line_no, letter_no):</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>          x_mas_count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(x_mas_count)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_cross_mass(text, line_no, letter_no):</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  letters_to_find <span class="op">=</span> [<span class="st">"M"</span>, <span class="st">"S"</span>]</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  letter_index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  line_index <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  line_max_index <span class="op">=</span> <span class="bu">len</span>(text) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  letter_max_index <span class="op">=</span> <span class="bu">len</span>(text[<span class="dv">1</span>]) <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  diag_1 <span class="op">=</span> [</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], <span class="co"># left up</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># right down</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  found_letters <span class="op">=</span> []</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> search_dir <span class="kw">in</span> diag_1:</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    search_letter <span class="op">=</span> letter_no <span class="op">+</span> search_dir[letter_index]</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    search_line <span class="op">=</span> line_no <span class="op">+</span> search_dir[line_index]</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># skip out of bounds </span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> search_line <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> search_line <span class="op">&gt;</span> line_max_index:</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> search_letter <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> search_letter <span class="op">&gt;</span> letter_max_index:</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    found_letters.append(text[search_line][search_letter])</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  found_letters.sort()</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">not</span> found_letters <span class="op">==</span> letters_to_find:</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(<span class="va">False</span>)</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  diag_2 <span class="op">=</span> [</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], <span class="co"># right up</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    [<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># left down</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  found_letters <span class="op">=</span> []</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> search_dir <span class="kw">in</span> diag_2:</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>    search_letter <span class="op">=</span> letter_no <span class="op">+</span> search_dir[letter_index]</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>    search_line <span class="op">=</span> line_no <span class="op">+</span> search_dir[line_index]</span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># skip out of bounds </span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> search_line <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> search_line <span class="op">&gt;</span> line_max_index:</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> search_letter <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> search_letter <span class="op">&gt;</span> letter_max_index:</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>    found_letters.append(text[search_line][search_letter])</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>  found_letters.sort()</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">not</span> found_letters <span class="op">==</span> letters_to_find:</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(<span class="va">False</span>)</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span>(<span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">4</span>, part <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">4</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day4_part2(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+[]
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['S', 'X']
+---
+['A', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['X', 'X']
+---
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['X', 'X']
+['M', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['\n', 'A']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['S', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['\n', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['A', 'A']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['A', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['S', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+[]
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'A']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'S']
+['X', 'X']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['A', 'S']
+---
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['A', 'M']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['S', 'X']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['X', 'X']
+['X', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['X', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'A']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['S', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['X', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'S']
+---
+['\n', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+[]
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'S']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['X', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'X']
+---
+['X', 'X']
+---
+['A', 'S']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'A']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['A', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+[]
+---
+['A', 'A']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'S']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'S']
+---
+['A', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['X', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['\n', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['S', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['A', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'A']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+[]
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['A', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['A', 'A']
+---
+['A', 'X']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['S', 'X']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['S', 'X']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['X', 'X']
+---
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['S', 'S']
+---
+['A', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+[]
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['A', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+['X', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['A', 'M']
+---
+['X', 'X']
+---
+['M', 'X']
+---
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['X', 'X']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['A', 'M']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['X', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['\n', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['A', 'S']
+---
+['X', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['X', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'S']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'A']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'A']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['A', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['S', 'X']
+---
+['A', 'A']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'S']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+[]
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'A']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'A']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['\n', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'A']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['X', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['\n', 'M']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['A', 'M']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['S', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['S', 'X']
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['\n', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['X', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['S', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['A', 'A']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['S', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['\n', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+[]
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'X']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['S', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+[]
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['S', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['A', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['A', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['X', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['\n', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['S', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['A', 'M']
+---
+['S', 'S']
+---
+['\n', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['A', 'A']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'S']
+---
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'A']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['\n', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['X', 'X']
+['M', 'X']
+---
+['S', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['S', 'S']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['A', 'A']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'A']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['S', 'X']
+---
+['A', 'M']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['A', 'M']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['A', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['A', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['\n', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['A', 'S']
+['\n', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+[]
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['X', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['S', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+[]
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['A', 'A']
+---
+['S', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['\n', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['X', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['A', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['X', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['A', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['A', 'M']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+[]
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['A', 'X']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'A']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'A']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['A', 'M']
+---
+['\n', 'M']
+---
+[]
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'X']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['\n', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'X']
+---
+[]
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'M']
+---
+['\n', 'S']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'A']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+[]
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['X', 'X']
+---
+['A', 'M']
+---
+['M', 'X']
+---
+['X', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'X']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'S']
+---
+['S', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+[]
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['X', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'A']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['X', 'X']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['S', 'S']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['M', 'X']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['A', 'S']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['A', 'A']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'A']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['A', 'A']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['A', 'S']
+---
+['M', 'X']
+---
+['A', 'A']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['\n', 'S']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'X']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['S', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['A', 'M']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['X', 'X']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['S', 'S']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['M', 'M']
+---
+['S', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['A', 'A']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['X', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['A', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['S', 'S']
+['X', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['A', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['\n', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['A', 'A']
+---
+['S', 'X']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'S']
+---
+['M', 'X']
+---
+['M', 'S']
+['S', 'X']
+['S', 'S']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['A', 'X']
+---
+['M', 'X']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['A', 'S']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['A', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['A', 'M']
+---
+['M', 'M']
+---
+['S', 'S']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['A', 'X']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['S', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'M']
+['A', 'M']
+---
+['A', 'A']
+---
+['M', 'M']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['X', 'X']
+---
+['M', 'S']
+['S', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['A', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'M']
+---
+['M', 'X']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'X']
+['M', 'S']
+['M', 'S']
+['S', 'S']
+---
+['M', 'M']
+---
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['M', 'S']
+['\n', 'S']
+---
+['S']
+---
+['S']
+---
+['S']
+---
+['S']
+---
+['A']
+---
+['A']
+---
+['S']
+---
+['M']
+---
+['S']
+---
+['M']
+---
+['X']
+---
+['A']
+---
+['S']
+---
+['S']
+---
+['M']
+---
+['M']
+---
+['M']
+---
+1807
+Elapsed: 0.089 seconds
+Memory:  608 KB</code></pre>
 </div>
 </div>
 </section>
