@@ -3,15 +3,15 @@
 
 .navbar {
   background-color: #0f0f23;
-  color: #00cc00;
+  color: #ffffff;
 }
 
 .navbar-title, .menu-text {
-  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+  text-shadow: 0 0 2px #ffffff, 0 0 5px #ffffff;
 }
 
 .navbar-title, .menu-text {
-  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+  text-shadow: 0 0 2px #ffffff, 0 0 5px #ffffff;
 }
 
 .navbar-title, .nav-link.active .menu-text {
@@ -20,9 +20,9 @@
 
 .navbar-nav .nav-link.active {
   color: #ffffff;
-  border-bottom: 2px solid #ffffff;
+  border-bottom: 2px solid #ffff66;
 }
 
 .nav-link {
-  color: #00cc00;
+  color: #ffffff;
 }

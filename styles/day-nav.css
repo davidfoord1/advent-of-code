@@ -1,6 +1,7 @@
 div.day-nav a.current-day {
-  color: #00cc00;
-  border-bottom: 2px solid #00cc00;
+  color: #ffffff;
+  border-bottom: 2px solid #ffff66;
+  padding-bottom: 3pt;
 }
 
 div.day-nav a {
