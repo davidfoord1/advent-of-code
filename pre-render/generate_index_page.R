@@ -1,8 +1,10 @@
 generate_index_page <- function(all_file_info) {
   # Assumes every save script is a completed star
-  stars_count <- aggregate(part ~ year + language + day,
-                           data = all_file_info,
-                           NROW)
+  stars_count <- aggregate(
+    part ~ year + language + day,
+    data = all_file_info,
+    NROW
+  )
 
   names(stars_count)[names(stars_count) == "part"] <- "parts"
 
@@ -32,11 +34,13 @@ generate_index_page <- function(all_file_info) {
   }
 
   stars_count <- stars_count |>
-    transform(parts = vapply(
-      parts,
-      write_stars,
-      character(1)
-    ))
+    transform(
+      parts = vapply(
+        parts,
+        write_stars,
+        character(1)
+      )
+    )
 
   stars_count[["stars"]] <- ifelse(
     nchar(stars_count[["parts"]]) > 0,
@@ -44,10 +48,11 @@ generate_index_page <- function(all_file_info) {
     ""
   )
 
-  stars_count[["year_language"]] <- paste(stars_count[["year"]],
-                                          stars_count[["language"]],
-                                          sep = "_")
-
+  stars_count[["year_language"]] <- paste(
+    stars_count[["year"]],
+    stars_count[["language"]],
+    sep = "_"
+  )
 
   stars_wide <- reshape(
     stars_count,
@@ -86,7 +91,6 @@ generate_index_page <- function(all_file_info) {
       ),
       ""
     )
-
   }
 
   stars_wide <- stars_wide[names(stars_wide) %in% c("day", years)]
@@ -109,12 +113,11 @@ generate_index_page <- function(all_file_info) {
   index_con <- file(index_file, open = "w")
 
   writeLines("---", index_con)
-  writeLines("title: R/Python Advent of Code Solutions", index_con)
+  writeLines("title: David's Advent of Code Solutions", index_con)
   writeLines("---", index_con)
 
   intro_text <- readLines("intro.md")
   writeLines(intro_text, index_con)
-
 
   # Table heading
   writeLines("", index_con)

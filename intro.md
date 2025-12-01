@@ -3,6 +3,4 @@ I love these challenges as they give me a refreshing and stimulating way to get 
 
 As some kind of data analyst I am usually transforming and visualising data in
 Excel and R. I'm taking this as an opportunity to try out different kinds of
-operations and to pick up Python. I'd say it's stepping out of my comfort zone,
-but perhaps by nature of my apparent obsession, I'm stepping
-*into* it.
+operations and to pick up Python.

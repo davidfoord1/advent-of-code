@@ -7,9 +7,10 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: "R & Python AoC"
+        text: "Home"
       - 2023/1.qmd
       - 2024/1.qmd
+      - 2025/1.qmd
 
     tools:
       - icon: github
