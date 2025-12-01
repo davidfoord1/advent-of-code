@@ -34,6 +34,7 @@ create_days_files <- function(file_info) {
         "#| echo: false",
         "# import R helpers",
         "source(\"../utils/aoc_utils.R\")",
+        "source(\"../utils/aoc_helpers.R\")",
         "```",
         "```{python python-helpers}",
         "#| echo: false",
