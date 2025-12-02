@@ -39,10 +39,7 @@ def is_cross_mass(text, line_no, letter_no):
    
   found_letters.sort()
   
-  print(found_letters)
-    
   if not found_letters == letters_to_find:
-    print("---")
     return(False)
   
   diag_2 = [
@@ -65,10 +62,8 @@ def is_cross_mass(text, line_no, letter_no):
     found_letters.append(text[search_line][search_letter])
     
   found_letters.sort()
-  print(found_letters)
   
   if not found_letters == letters_to_find:
     return(False)
   
   return(True)
-  
