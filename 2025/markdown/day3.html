@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>David’s Advent of Code Solutions</title>
+<title>day3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4d9c4a6154c9e9add7c65e4776357f5a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4d9c4a6154c9e9add7c65e4776357f5a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,11 +68,11 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles/body.css">
-<link rel="stylesheet" href="styles/nav.css">
-<link rel="stylesheet" href="styles/day-nav.css">
-<link rel="stylesheet" href="styles/lang-nav.css">
-<link rel="stylesheet" href="styles/code.css">
+<link rel="stylesheet" href="../../styles/body.css">
+<link rel="stylesheet" href="../../styles/nav.css">
+<link rel="stylesheet" href="../../styles/day-nav.css">
+<link rel="stylesheet" href="../../styles/lang-nav.css">
+<link rel="stylesheet" href="../../styles/code.css">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -88,19 +88,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./2023/1.html"> 
+    <a class="nav-link" href="../../2023/1.html"> 
 <span class="menu-text">2023</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./2024/1.html"> 
+    <a class="nav-link" href="../../2024/1.html"> 
 <span class="menu-text">2024</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./2025/1.html"> 
+    <a class="nav-link" href="../../2025/1.html"> 
 <span class="menu-text">2025</span></a>
   </li>  
 </ul>
@@ -133,194 +133,12 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">David’s Advent of Code Solutions</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
+<p>I came up with a sliding window approach for today which I’m pretty happy with. Part 2 solution was generalised so that it could answer part 1 as well, with 2 supplied instead of 12.</p>
 
 
-</header>
-
-
-<p>A personal project of solutions to <a href="https://adventofcode.com/">Advent of Code</a>. I love these challenges as they give me a refreshing and stimulating way to get more comfortable coding, thinking about algorithms as well as just being being a fun set of puzzles.</p>
-<p>As some kind of data analyst I am usually transforming and visualising data in Excel and R. I’m taking this as an opportunity to try out different kinds of operations and to pick up Python.</p>
-<section id="star-collection" class="level3">
-<h3 class="anchored" data-anchor-id="star-collection">Star collection</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>day</th>
-<th>2023</th>
-<th>2024</th>
-<th>2025</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><a href="./2023/1.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/1.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2025/1.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><a href="./2023/2.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/2.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2025/2.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><a href="./2023/3.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/3.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2025/3.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><a href="./2023/4.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/4.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td><a href="./2023/5.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/5.html">R <span class="star">*</span><span class="star">*</span> Python <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td><a href="./2023/6.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/6.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td><a href="./2023/7.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/7.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td><a href="./2023/8.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/8.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td><a href="./2023/9.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/9.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td><a href="./2023/10.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/10.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td><a href="./2023/11.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td><a href="./2024/11.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td></td>
-<td><a href="./2024/12.html">R <span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td></td>
-<td><a href="./2024/13.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>14</td>
-<td></td>
-<td><a href="./2024/14.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>15</td>
-<td></td>
-<td><a href="./2024/15.html">R <span class="star">*</span><span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>16</td>
-<td></td>
-<td><a href="./2024/16.html">R <span class="star">*</span></a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>17</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>18</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>19</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>20</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>21</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>22</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>23</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>24</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>25</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
