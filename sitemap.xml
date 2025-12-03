@@ -2,11 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/intro.html</loc>
-    <lastmod>2024-11-08T22:49:11.035Z</lastmod>
+    <lastmod>2025-12-01T08:46:56.329Z</lastmod>
+  </url>
+  <url>
+    <loc>https://davidfoord1.github.io/advent-of-code/2025/nav.html</loc>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
+  </url>
+  <url>
+    <loc>https://davidfoord1.github.io/advent-of-code/2025/markdown/1.html</loc>
+    <lastmod>2025-12-02T20:01:37.615Z</lastmod>
+  </url>
+  <url>
+    <loc>https://davidfoord1.github.io/advent-of-code/2025/2.html</loc>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/nav.html</loc>
-    <lastmod>2025-11-05T17:37:16.315Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/markdown/day2.html</loc>
@@ -14,122 +26,134 @@
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/8.html</loc>
-    <lastmod>2025-11-05T17:37:16.311Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/6.html</loc>
-    <lastmod>2025-11-05T17:37:16.310Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/4.html</loc>
-    <lastmod>2025-11-05T17:37:16.308Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/2.html</loc>
-    <lastmod>2025-11-05T17:37:16.306Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/15.html</loc>
-    <lastmod>2025-11-05T17:37:16.313Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/13.html</loc>
-    <lastmod>2025-11-05T17:37:16.313Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/11.html</loc>
-    <lastmod>2025-11-05T17:37:16.313Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/1.html</loc>
-    <lastmod>2025-11-05T17:37:16.305Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/9.html</loc>
-    <lastmod>2025-11-05T17:37:16.300Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/7.html</loc>
-    <lastmod>2025-11-05T17:37:16.299Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/5.html</loc>
-    <lastmod>2025-11-05T17:37:16.294Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/3.html</loc>
-    <lastmod>2025-11-05T17:37:16.294Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/11.html</loc>
-    <lastmod>2025-11-05T17:37:16.302Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/1.html</loc>
-    <lastmod>2025-11-05T17:37:16.294Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/10.html</loc>
-    <lastmod>2025-11-05T17:37:16.300Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/2.html</loc>
-    <lastmod>2025-11-05T17:37:16.294Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/4.html</loc>
-    <lastmod>2025-11-05T17:37:16.294Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/6.html</loc>
-    <lastmod>2025-11-05T17:37:16.299Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/8.html</loc>
-    <lastmod>2025-11-05T17:37:16.300Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2023/nav.html</loc>
-    <lastmod>2025-11-05T17:37:16.302Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/10.html</loc>
-    <lastmod>2025-11-05T17:37:16.312Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/12.html</loc>
-    <lastmod>2025-11-05T17:37:16.313Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/14.html</loc>
-    <lastmod>2025-11-05T17:37:16.313Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/16.html</loc>
-    <lastmod>2025-11-05T17:37:16.315Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/3.html</loc>
-    <lastmod>2025-11-05T17:37:16.307Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/5.html</loc>
-    <lastmod>2025-11-05T17:37:16.309Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.931Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/7.html</loc>
-    <lastmod>2025-11-05T17:37:16.310Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/9.html</loc>
-    <lastmod>2025-11-05T17:37:16.312Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
   </url>
   <url>
     <loc>https://davidfoord1.github.io/advent-of-code/2024/markdown/day7.html</loc>
     <lastmod>2024-12-08T09:40:34.669Z</lastmod>
   </url>
   <url>
+    <loc>https://davidfoord1.github.io/advent-of-code/2025/1.html</loc>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
+  </url>
+  <url>
+    <loc>https://davidfoord1.github.io/advent-of-code/2025/3.html</loc>
+    <lastmod>2025-12-03T08:35:47.946Z</lastmod>
+  </url>
+  <url>
+    <loc>https://davidfoord1.github.io/advent-of-code/2025/markdown/2.html</loc>
+    <lastmod>2025-12-02T19:51:14.464Z</lastmod>
+  </url>
+  <url>
     <loc>https://davidfoord1.github.io/advent-of-code/index.html</loc>
-    <lastmod>2025-11-05T17:37:16.395Z</lastmod>
+    <lastmod>2025-12-03T08:35:47.994Z</lastmod>
   </url>
 </urlset>
