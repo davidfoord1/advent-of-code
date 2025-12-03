@@ -1,4 +1,4 @@
-def solve_day1_part1(text):
+def solve_day2_part1(text):
   ranges = text[0].split(",")
   ranges = [str.split("-") for str in ranges]
 
