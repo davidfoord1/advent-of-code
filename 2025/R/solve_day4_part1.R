@@ -6,7 +6,7 @@ solve_day4_part1 <- function(input) {
 
   for (row in seq_len(nrows)) {
     for (col in seq_len(ncols)) {
-      liftable[row, col] <- is_liftable_2(grid, row, col, nrows, ncols)
+      liftable[row, col] <- is_liftable(grid, row, col, nrows, ncols)
     }
   }
 
