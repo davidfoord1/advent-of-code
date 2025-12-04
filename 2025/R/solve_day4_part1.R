@@ -6,7 +6,7 @@ solve_day4_part1 <- function(input) {
 
   for (row in seq_len(nrows)) {
     for (col in seq_len(ncols)) {
-      liftable[row, col] <- is_liftable(grid, row, col, nrows, ncols)
+      liftable[row, col] <- is_liftable_2(grid, row, col, nrows, ncols)
     }
   }
 
@@ -15,29 +15,23 @@ solve_day4_part1 <- function(input) {
 
 is_liftable <- function(grid, row, col, nrows, ncols) {
   char <- grid[row, col]
+  pos <- matrix(c(row, col), nrow = 1)
+
   if (char != "@") {
     return(FALSE)
   }
 
-  # count surrounding rolls
+  dir_list <- aoc_2D_dirs()
   roll_count <- 0L
 
-  for (row_adj in -1:1) {
-    search_row <- row + row_adj
-    if ((search_row) < 1) next
-    if ((search_row) > nrows) next
+  for (dir in dir_list) {
+    search_pos <- pos + dir
+    if (aoc_2D_out_of_bounds(search_pos, nrows, ncols)) next
 
-    for (col_adj in -1:1) {
-      search_col <- col + col_adj
-      if ((search_col) < 1) next
-      if ((search_col) > ncols) next
-      if (row == search_row && col == search_col) next
-
-      if (grid[search_row, search_col] == "@") {
-        roll_count <- roll_count + 1L
-      }
+    if (grid[search_pos] == "@") {
+      roll_count <- roll_count + 1L
     }
   }
 
-  roll_count < 4
+  roll_count < 4L
 }
