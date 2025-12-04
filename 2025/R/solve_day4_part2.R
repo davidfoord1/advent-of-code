@@ -12,7 +12,7 @@ solve_day4_part2 <- function(input) {
     }
   }
 
-  removable_count <- sum(surrounding < 4L)
+  removable_count <- sum(surrounding < 4)
 
   while(removable_count > 0) {
     # remove rolls
@@ -24,7 +24,7 @@ solve_day4_part2 <- function(input) {
     }
 
     total_removed <- total_removed + removable_count
-    removable_count <- sum(surrounding < 4L)
+    removable_count <- sum(surrounding < 4)
   }
 
   total_removed
@@ -37,7 +37,7 @@ count_surrounding <- function(grid, row, col, nrows, ncols) {
   }
 
   # count surrounding rolls
-  roll_count <- 0L
+  roll_count <- 0
 
   for (row_adj in -1:1) {
     search_row <- row + row_adj
@@ -51,7 +51,7 @@ count_surrounding <- function(grid, row, col, nrows, ncols) {
       if (row == search_row && col == search_col) next
 
       if (grid[search_row, search_col] == "@") {
-        roll_count <- roll_count + 1L
+        roll_count <- roll_count + 1
       }
     }
   }
