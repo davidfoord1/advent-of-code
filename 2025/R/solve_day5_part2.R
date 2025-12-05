@@ -8,7 +8,7 @@ solve_day5_part2 <- function(input) {
     col.names = c("start", "end")
   )
 
-  ranges <- sort_by(ranges, ranges[[1L]])
+  ranges <- sort_by(ranges, ranges[["start"]])
 
   rows_to_check <- 2:NROW(ranges)
   new_ranges <- ranges
@@ -18,7 +18,7 @@ solve_day5_part2 <- function(input) {
   for (row in rows_to_check) {
     extends <- extends_prev(ranges[row, ], new_ranges[prev_row, ])
     if (extends) {
-      new_ranges[prev_row, 2] <- ranges[row, 2]
+      new_ranges[prev_row, "end"] <- ranges[row, "end"]
     }
 
     within <- within_prev(ranges[row, ], new_ranges[prev_row, ])
@@ -28,15 +28,15 @@ solve_day5_part2 <- function(input) {
     }
   }
 
-  sum(new_ranges[[2L]] - new_ranges[[1L]] + 1L, na.rm = TRUE)
+  sum(new_ranges[["end"]] - new_ranges[["start"]] + 1L, na.rm = TRUE)
 }
 
 extends_prev <- function(check_row, stored_row) {
-  check_row[, 1L] <= stored_row[, 2L] &&
-    check_row[, 2L] >= stored_row[, 2L]
+  check_row[["start"]] <= stored_row[["end"]] &&
+    check_row["end"] >= stored_row["end"]
 }
 
 within_prev <- function(check_row, stored_row) {
-  check_row[, 1L] >= stored_row[, 1L] &&
-    check_row[, 2L] <= stored_row[, 2L]
+  check_row[["start"]] >= stored_row[["start"]] &&
+    check_row[["end"]] <= stored_row[["end"]]
 }
