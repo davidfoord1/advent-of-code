@@ -2,21 +2,20 @@ solve_day5_part2 <- function(input) {
   split_at <- which(input == "")
 
   ranges <- input[1:(split_at - 1)]
-  ranges <- strsplit(ranges, "-", fixed = TRUE)
-  ranges <- lapply(ranges, as.numeric)
-  ranges <- t(simplify2array(ranges))
+  ranges <- read.table(
+    text = ranges,
+    sep  = "-",
+    col.names = c("start", "end")
+  )
 
-  new_ranges <- matrix(nrow=NROW(ranges), ncol=NCOL(ranges))
-  new_ranges <- data.frame(new_ranges)
-
-  ranges <- data.frame(ranges)
   ranges <- sort_by(ranges, ranges[[1L]])
 
-  new_ranges[1L, ] <- ranges[1L,]
+  rows_to_check <- 2:NROW(ranges)
+  new_ranges <- ranges
+  new_ranges[rows_to_check, ] <- NA_integer_
   prev_row <- 1L
 
-  for (row in 2:NROW(ranges)) {
-
+  for (row in rows_to_check) {
     extends <- extends_prev(ranges[row, ], new_ranges[prev_row, ])
     if (extends) {
       new_ranges[prev_row, 2] <- ranges[row, 2]
