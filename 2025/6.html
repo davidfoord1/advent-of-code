@@ -169,155 +169,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><script src="../scripts/day-nav.js"></script><div class="day-nav">
 <p><a href="../2025/1.html">Day 1</a> <a href="../2025/2.html">Day 2</a> <a href="../2025/3.html">Day 3</a> <a href="../2025/4.html">Day 4</a> <a href="../2025/5.html">Day 5</a> <a href="../2025/6.html">Day 6</a></p>
 </div>
-<p>I came up with a sliding window approach for today which I’m pretty happy with. Part 2 solution was generalised so that it could answer part 1 as well, with 2 supplied instead of 12.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset language-set">
-<ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li>
-</ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li></ul>
 <div class="tab-content language-set">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<section id="r-day-3-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-3-part-1">— R Day 3 Part 1 —</h3>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day3_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">input</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">as.integer</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">max_jolt</span>, <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
+<section id="r-day-6-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-6-part-1">— R Day 6 Part 1 —</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day6_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">worksheet</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">input</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">max_jolt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">bank</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">first_loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span><span class="op">(</span><span class="va">bank</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">bank</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="va">first_digit</span> <span class="op">&lt;-</span> <span class="va">bank</span><span class="op">[[</span><span class="va">first_loc</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">nums</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
-<span>  <span class="va">second_digit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">bank</span><span class="op">[</span><span class="op">(</span><span class="va">first_loc</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">bank</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">col</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">nums</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">nums</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
 <span></span>
-<span>  <span class="va">joltage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">first_digit</span>, <span class="va">second_digit</span><span class="op">)</span></span>
+<span>    <span class="va">ops</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span>, <span class="op">]</span></span>
+<span>    <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">joltage</span><span class="op">)</span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="va">operation</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span></span>
+<span>            <span class="va">ops</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span>,</span>
+<span>            <span class="st">"*"</span> <span class="op">=</span> <span class="va">`*`</span>,</span>
+<span>            <span class="st">"+"</span> <span class="op">=</span> <span class="va">`+`</span>,</span>
+<span>        <span class="op">)</span></span>
+<span></span>
+<span>        <span class="va">ans</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">operation</span>, <span class="va">nums</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ans</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">6</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day3_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day6_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.007 seconds
-Memory:  591 KB</code></pre>
+<pre><code>Elapsed: 0.083 seconds
+Memory:  24047 KB</code></pre>
 </div>
 </div>
-</section><section id="r-day-3-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-3-part-2">— R Day 3 Part 2 —</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day3_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">input</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">as.integer</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">max_jolt</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
+</section><section id="r-day-6-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-6-part-2">— R Day 6 Part 2 —</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day6_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">worksheet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">""</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#' @params bank Character vector of digits</span></span>
-<span><span class="co">#' @params digit_count Numeric number of digits to use for joltage</span></span>
-<span><span class="va">max_jolt</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">bank</span>, <span class="va">digit_count</span> <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">digit_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">digit_count</span><span class="op">)</span></span>
-<span>  <span class="va">digits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="va">digit_count</span><span class="op">)</span></span>
-<span>  <span class="va">prev_loc</span> <span class="op">&lt;-</span> <span class="fl">0L</span></span>
-<span>  <span class="va">len</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">bank</span><span class="op">)</span></span>
+<span>  <span class="va">nums</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="va">nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">nums</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">digit_nums</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">max_loc</span> <span class="op">&lt;-</span> <span class="va">len</span> <span class="op">-</span> <span class="op">(</span><span class="va">digit_count</span> <span class="op">-</span> <span class="va">i</span><span class="op">)</span></span>
-<span>    <span class="va">valid_bank</span> <span class="op">&lt;-</span> <span class="va">bank</span><span class="op">[</span><span class="op">(</span><span class="va">prev_loc</span> <span class="op">+</span> <span class="fl">1L</span><span class="op">)</span><span class="op">:</span><span class="va">max_loc</span><span class="op">]</span></span>
-<span>    <span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span><span class="op">(</span><span class="va">valid_bank</span><span class="op">)</span></span>
-<span>    <span class="va">prev_loc</span> <span class="op">&lt;-</span> <span class="va">prev_loc</span> <span class="op">+</span> <span class="va">loc</span></span>
-<span>    <span class="va">digits</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">valid_bank</span><span class="op">[</span><span class="va">loc</span><span class="op">]</span></span>
+<span>  <span class="va">len</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">boundaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">len</span><span class="op">)</span></span>
+<span>  <span class="va">boundary_ptr</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span>
+<span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">len</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">==</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">boundaries</span><span class="op">[</span><span class="va">boundary_ptr</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
+<span>      <span class="va">boundary_ptr</span> <span class="op">&lt;-</span> <span class="va">boundary_ptr</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>    <span class="op">}</span></span>
 <span>  <span class="op">}</span></span>
 <span></span>
-<span>  <span class="va">joltage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">digits</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>  <span class="va">boundaries</span> <span class="op">&lt;-</span> <span class="va">boundaries</span><span class="op">[</span><span class="op">!</span><span class="va">boundaries</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span></span>
+<span>  <span class="va">boundaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">boundaries</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">joltage</span><span class="op">)</span></span>
+<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">boundaries</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">start</span> <span class="op">&lt;-</span> <span class="va">len</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">problem</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">boundaries</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">end</span> <span class="op">&lt;-</span> <span class="va">boundaries</span><span class="op">[[</span><span class="va">problem</span><span class="op">]</span><span class="op">]</span></span>
+<span></span>
+<span>    <span class="va">curr_num_len</span> <span class="op">&lt;-</span> <span class="va">start</span> <span class="op">-</span> <span class="va">end</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>    <span class="va">curr_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">curr_num_len</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">curr_num_len</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">curr_num</span> <span class="op">&lt;-</span> <span class="va">start</span> <span class="op">-</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>      <span class="va">curr_nums</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">curr_num</span>, <span class="op">]</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span></span>
+<span>    <span class="va">problem_nums</span><span class="op">[[</span><span class="va">problem</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">curr_nums</span></span>
+<span>    <span class="va">start</span> <span class="op">&lt;-</span> <span class="va">boundaries</span><span class="op">[[</span><span class="va">problem</span><span class="op">]</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">problem_nums</span>, <span class="va">na.omit</span><span class="op">)</span></span>
+<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">problem_nums</span>, <span class="va">unlist</span><span class="op">)</span></span>
+<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">problem_nums</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">ops_sheet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">input</span><span class="op">)</span></span>
+<span>  <span class="va">ops</span> <span class="op">&lt;-</span> <span class="va">ops_sheet</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">ops_sheet</span><span class="op">)</span>, <span class="op">]</span></span>
+<span>  <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ops_sheet</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">ops_sheet</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">operation</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span></span>
+<span>          <span class="va">ops</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span>,</span>
+<span>          <span class="st">"*"</span> <span class="op">=</span> <span class="va">`*`</span>,</span>
+<span>          <span class="st">"+"</span> <span class="op">=</span> <span class="va">`+`</span>,</span>
+<span>      <span class="op">)</span></span>
+<span></span>
+<span>      <span class="va">ans</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">operation</span>, <span class="va">problem_nums</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ans</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span>, part <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">6</span>, part <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day3_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day6_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.011 seconds
-Memory:  725 KB</code></pre>
-</div>
-</div>
-</section>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<section id="python-day-3-part-1" class="level3"><h3 class="anchored" data-anchor-id="python-day-3-part-1">— Python Day 3 Part 1 —</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day3_part1(text):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    banks <span class="op">=</span> [<span class="bu">list</span>(line.strip(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)) <span class="cf">for</span> line <span class="kw">in</span> text]</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    joltage <span class="op">=</span> [max_jolt(bank) <span class="cf">for</span> bank <span class="kw">in</span> banks]</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(<span class="bu">sum</span>(joltage))</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> max_jolt(bank, n <span class="op">=</span> <span class="dv">2</span>):</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    digits <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> n</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    prev_loc <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    bank_len <span class="op">=</span> <span class="bu">len</span>(bank)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        max_loc <span class="op">=</span> bank_len <span class="op">-</span> (n <span class="op">-</span> i) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        search_bank <span class="op">=</span> bank[(prev_loc <span class="op">+</span> <span class="dv">1</span>):max_loc]</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        digits[i] <span class="op">=</span> <span class="bu">max</span>(search_bank)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        loc <span class="op">=</span> search_bank.index(digits[i])</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        prev_loc <span class="op">=</span> prev_loc <span class="op">+</span> loc <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="bu">int</span>(<span class="st">''</span>.join(digits))</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">3</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day3_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.002 seconds
-Memory:  181 KB</code></pre>
-</div>
-</div>
-</section><section id="python-day-3-part-2" class="level3"><h3 class="anchored" data-anchor-id="python-day-3-part-2">— Python Day 3 Part 2 —</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day3_part2(text):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    banks <span class="op">=</span> [<span class="bu">list</span>(line.strip(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)) <span class="cf">for</span> line <span class="kw">in</span> text]</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    joltage <span class="op">=</span> [max_jolt(bank) <span class="cf">for</span> bank <span class="kw">in</span> banks]</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(<span class="bu">sum</span>(joltage))</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> max_jolt(bank, n <span class="op">=</span> <span class="dv">12</span>):</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    digits <span class="op">=</span> [<span class="va">None</span>] <span class="op">*</span> n</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    prev_loc <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    bank_len <span class="op">=</span> <span class="bu">len</span>(bank)</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        max_loc <span class="op">=</span> bank_len <span class="op">-</span> (n <span class="op">-</span> i) <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        search_bank <span class="op">=</span> bank[(prev_loc <span class="op">+</span> <span class="dv">1</span>):max_loc]</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        digits[i] <span class="op">=</span> <span class="bu">max</span>(search_bank)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        loc <span class="op">=</span> search_bank.index(digits[i])</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        prev_loc <span class="op">=</span> prev_loc <span class="op">+</span> loc <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> <span class="bu">int</span>(<span class="st">''</span>.join(digits))</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">3</span>, part <span class="op">=</span> <span class="dv">2</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day3_part2(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.005 seconds
-Memory:  187 KB</code></pre>
+<pre><code>Elapsed: 0.577 seconds
+Memory:  8732 KB</code></pre>
 </div>
 </div>
 </section>
