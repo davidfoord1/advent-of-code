@@ -4,55 +4,18 @@ solve_day6_part2 <- function(input) {
   nums <- worksheet[1:(length(worksheet)-1)]
   nums <- as.data.frame(nums)
 
-  len <- NROW(nums[[1]])
-  boundaries <- numeric(len)
-  boundary_ptr <- 1L
+  ops_row <- worksheet[[length(worksheet)]]
+  starts <- which(ops_row != " ")
+  ends <- c(starts[-1] - 2, NROW(nums))
 
-  for (i in seq_len(len)) {
-    if (all(nums[i, ] == " ")) {
-      boundaries[boundary_ptr] <- i
-      boundary_ptr <- boundary_ptr + 1
-    }
-  }
+  nums <- as.numeric(apply(nums, 1, paste0, collapse = ""))
+  nums <- Map(\(start, end) nums[start:end], starts, ends)
 
-  boundaries <- boundaries[!boundaries == 0]
-  boundaries <- c(rev(boundaries), 1)
+  ops <- ops_row[starts]
+  ops <- ifelse(ops == "+", list(sum), list(prod))
 
-  problem_nums <- vector("list", length(boundaries))
-
-  start <- len
-  for (problem in seq_along(boundaries)) {
-    end <- boundaries[[problem]]
-
-    curr_num_len <- start - end + 1
-    curr_nums <- numeric(curr_num_len)
-
-    for (i in seq_len(curr_num_len)) {
-      curr_num <- start - i + 1
-      curr_nums[i] <- as.numeric(paste0(nums[curr_num, ], collapse = ""))
-    }
-
-    problem_nums[[problem]] <- curr_nums
-    start <- boundaries[[problem]] - 1
-  }
-
-  problem_nums <- lapply(problem_nums, na.omit)
-  problem_nums <- lapply(problem_nums, unlist)
-  problem_nums <- rev(problem_nums)
-
-  ops_sheet <- read.table(text = input)
-  ops <- ops_sheet[NROW(ops_sheet), ]
-  ans <- numeric(length(ops_sheet))
-
-  for (i in seq_along(ops_sheet)) {
-      operation = switch(
-          ops[, i],
-          "*" = `*`,
-          "+" = `+`,
-      )
-
-      ans[i] = Reduce(operation, problem_nums[[i]])
-  }
+  ans <- Map(\(fn, vec) fn(vec), ops, nums)
+  ans <- unlist(ans)
 
   sum(ans)
 }
