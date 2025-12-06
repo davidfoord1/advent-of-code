@@ -2,23 +2,13 @@ solve_day6_part1 <- function(input) {
     worksheet = read.table(text = input)
 
     nums <- worksheet[1:(NROW(worksheet)-1), ]
-
-    for (col in seq_along(nums)) {
-        nums[[col]] <- as.numeric(nums[[col]])
-    }
+    nums <- apply(nums,2, as.numeric, simplify = FALSE)
 
     ops <- worksheet[NROW(worksheet), ]
-    ans <- numeric(length(worksheet))
+    ops <- ifelse(ops == "+", list(sum), list(prod))
 
-    for (i in seq_along(worksheet)) {
-        operation = switch(
-            ops[, i],
-            "*" = `*`,
-            "+" = `+`,
-        )
+    ans <- Map(\(fn, vec) fn(vec), ops, nums)
+    ans <- unlist(ans)
 
-        ans[i] = Reduce(operation, nums[, i])
-    }
-
-  sum(ans)
+    sum(ans)
 }
