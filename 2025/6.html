@@ -174,30 +174,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="tab-content language-set">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="r-day-6-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-6-part-1">— R Day 6 Part 1 —</h3>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day6_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">worksheet</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">input</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="va">nums</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>, <span class="op">]</span></span>
-<span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">col</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">nums</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">nums</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[[</span><span class="va">col</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span></span>
-<span>    <span class="va">ops</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span>, <span class="op">]</span></span>
-<span>    <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>        <span class="va">operation</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span></span>
-<span>            <span class="va">ops</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span>,</span>
-<span>            <span class="st">"*"</span> <span class="op">=</span> <span class="va">`*`</span>,</span>
-<span>            <span class="st">"+"</span> <span class="op">=</span> <span class="va">`+`</span>,</span>
-<span>        <span class="op">)</span></span>
-<span></span>
-<span>        <span class="va">ans</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">operation</span>, <span class="va">nums</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ans</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>solve_day6_part1 <span class="ot">&lt;-</span> <span class="cf">function</span>(input) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    worksheet <span class="ot">=</span> <span class="fu">read.table</span>(<span class="at">text =</span> input)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    nums <span class="ot">&lt;-</span> worksheet[<span class="dv">1</span><span class="sc">:</span>(<span class="fu">NROW</span>(worksheet)<span class="sc">-</span><span class="dv">1</span>), ]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    nums <span class="ot">&lt;-</span> <span class="fu">apply</span>(nums, <span class="dv">2</span>, as.numeric, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    ops <span class="ot">&lt;-</span> worksheet[<span class="fu">NROW</span>(worksheet), ]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ops <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(ops <span class="sc">==</span> <span class="st">"+"</span>, sum), <span class="fu">list</span>(prod)<span class="er">)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ans <span class="ot">&lt;-</span> <span class="fu">mapply</span>(\(fn, vec) <span class="fu">fn</span>(vec), ops, nums)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(ans)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">6</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
@@ -212,59 +201,22 @@ Memory:  24047 KB</code></pre>
 </section><section id="r-day-6-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-6-part-2">— R Day 6 Part 2 —</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day6_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">worksheet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">""</span><span class="op">)</span></span>
+<span>  <span class="va">nrows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">nums</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">worksheet</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="va">nums</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">nrows</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
 <span>  <span class="va">nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">nums</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">len</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="va">boundaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">len</span><span class="op">)</span></span>
-<span>  <span class="va">boundary_ptr</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span>
+<span>  <span class="va">ops_row</span> <span class="op">&lt;-</span> <span class="va">worksheet</span><span class="op">[[</span><span class="va">nrows</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">starts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">ops_row</span> <span class="op">!=</span> <span class="st">" "</span><span class="op">)</span></span>
+<span>  <span class="va">ends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">starts</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">-</span> <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">nums</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">len</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span> <span class="op">==</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">boundaries</span><span class="op">[</span><span class="va">boundary_ptr</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
-<span>      <span class="va">boundary_ptr</span> <span class="op">&lt;-</span> <span class="va">boundary_ptr</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>    <span class="op">}</span></span>
-<span>  <span class="op">}</span></span>
+<span>  <span class="va">nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">nums</span>, <span class="fl">1</span>, <span class="va">paste0</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span> <span class="va">nums</span><span class="op">[</span><span class="va">start</span><span class="op">:</span><span class="va">end</span><span class="op">]</span>, <span class="va">starts</span>, <span class="va">ends</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">boundaries</span> <span class="op">&lt;-</span> <span class="va">boundaries</span><span class="op">[</span><span class="op">!</span><span class="va">boundaries</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span></span>
-<span>  <span class="va">boundaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">boundaries</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="va">ops</span> <span class="op">&lt;-</span> <span class="va">ops_row</span><span class="op">[</span><span class="va">starts</span><span class="op">]</span></span>
+<span>  <span class="va">ops</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">ops</span> <span class="op">==</span> <span class="st">"+"</span>, <span class="va">sum</span>, <span class="va">prod</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">boundaries</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">start</span> <span class="op">&lt;-</span> <span class="va">len</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">problem</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">boundaries</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">end</span> <span class="op">&lt;-</span> <span class="va">boundaries</span><span class="op">[[</span><span class="va">problem</span><span class="op">]</span><span class="op">]</span></span>
-<span></span>
-<span>    <span class="va">curr_num_len</span> <span class="op">&lt;-</span> <span class="va">start</span> <span class="op">-</span> <span class="va">end</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>    <span class="va">curr_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">curr_num_len</span><span class="op">)</span></span>
-<span></span>
-<span>    <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">curr_num_len</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">curr_num</span> <span class="op">&lt;-</span> <span class="va">start</span> <span class="op">-</span> <span class="va">i</span> <span class="op">+</span> <span class="fl">1</span></span>
-<span>      <span class="va">curr_nums</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">nums</span><span class="op">[</span><span class="va">curr_num</span>, <span class="op">]</span>, collapse <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span></span>
-<span>    <span class="va">problem_nums</span><span class="op">[[</span><span class="va">problem</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">curr_nums</span></span>
-<span>    <span class="va">start</span> <span class="op">&lt;-</span> <span class="va">boundaries</span><span class="op">[[</span><span class="va">problem</span><span class="op">]</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span></span>
-<span>  <span class="op">}</span></span>
-<span></span>
-<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">problem_nums</span>, <span class="va">na.omit</span><span class="op">)</span></span>
-<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">problem_nums</span>, <span class="va">unlist</span><span class="op">)</span></span>
-<span>  <span class="va">problem_nums</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html">rev</a></span><span class="op">(</span><span class="va">problem_nums</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">ops_sheet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">input</span><span class="op">)</span></span>
-<span>  <span class="va">ops</span> <span class="op">&lt;-</span> <span class="va">ops_sheet</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">ops_sheet</span><span class="op">)</span>, <span class="op">]</span></span>
-<span>  <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ops_sheet</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">ops_sheet</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">operation</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span></span>
-<span>          <span class="va">ops</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span>,</span>
-<span>          <span class="st">"*"</span> <span class="op">=</span> <span class="va">`*`</span>,</span>
-<span>          <span class="st">"+"</span> <span class="op">=</span> <span class="va">`+`</span>,</span>
-<span>      <span class="op">)</span></span>
-<span></span>
-<span>      <span class="va">ans</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/funprog.html">Reduce</a></span><span class="op">(</span><span class="va">operation</span>, <span class="va">problem_nums</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
+<span>  <span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">fn</span>, <span class="va">vec</span><span class="op">)</span> <span class="fu">fn</span><span class="op">(</span><span class="va">vec</span><span class="op">)</span>, <span class="va">ops</span>, <span class="va">groups</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ans</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
