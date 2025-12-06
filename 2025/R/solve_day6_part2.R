@@ -9,13 +9,14 @@ solve_day6_part2 <- function(input) {
   starts <- which(ops_row != " ")
   ends <- c(starts[-1] - 2, NROW(nums))
 
-  nums <- as.numeric(apply(nums, 1, paste0, collapse = ""))
+  nums <- as.numeric(apply(nums, 1, \(x) paste0(x, collapse = "")))
   groups <- Map(\(start, end) nums[start:end], starts, ends)
 
   ops <- ops_row[starts]
-  ops <- ifelse(ops == "+", list(sum), list(prod))
+  op_map <- list("+" = sum, "*" = prod)
+  op_fns <- op_map[ops]
 
-  ans <- mapply(\(fn, vec) fn(vec), ops, groups)
+  ans <- mapply(\(fn, group) fn(group), op_fns, groups)
 
   sum(ans)
 }

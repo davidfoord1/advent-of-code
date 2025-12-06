@@ -7,7 +7,7 @@ solve_day6_part1 <- function(input) {
     ops <- worksheet[NROW(worksheet), ]
     ops <- ifelse(ops == "+", list(sum), list(prod))
 
-    ans <- mapply(\(fn, vec) fn(vec), ops, nums)
+    ans <- mapply(\(fn, group) fn(group), ops, nums)
 
     sum(ans)
 }
