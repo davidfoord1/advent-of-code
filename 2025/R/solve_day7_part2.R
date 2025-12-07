@@ -5,26 +5,31 @@ solve_day7_part2 <- function(input) {
 
   source <- which(grid == "S", arr.ind = TRUE)
 
-  row <- source[[1L]] + 1L
+  row <- source[[1L]]
   beams <- matrix(0, nrows, ncols)
-  beams[row, source[[2L]]] <- 1L
+  beams[row, source[[2L]]] <- 1
 
-  while(row < nrows) {
+  for (row in seq_len(nrows-1L)) {
+    curr <- beams[row, ]
+    cols <- which(curr > 0)
+
     next_row <- row + 1L
-    cols <- which(beams[row, ] > 0)
+    is_split <- grid[next_row, cols] == "^"
 
-    for (col in cols) {
-      n_beams <- beams[row, col]
-      if (grid[next_row, col] == "^") {
-        beams[next_row, col - 1L] <- beams[next_row, col - 1L] + n_beams
-        beams[next_row, col + 1L] <- beams[next_row, col + 1L] + n_beams
-        next
-      }
+    splits  <- cols[is_split]
+    not_split <- cols[!is_split]
 
-      beams[next_row, col] <- beams[next_row, col] + n_beams
+    if (length(not_split) > 0L) {
+      beams[next_row, not_split] <- beams[next_row, not_split] + curr[not_split]
     }
 
-    row <- next_row
+    if (length(splits) > 0L) {
+      left  <- splits - 1L
+      right <- splits + 1L
+
+      beams[next_row, left]  <- beams[next_row, left]  + curr[splits]
+      beams[next_row, right] <- beams[next_row, right] + curr[splits]
+    }
   }
 
   sum(beams[nrows, ])
