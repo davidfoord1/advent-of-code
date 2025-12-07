@@ -8,7 +8,6 @@ solve_day7_part2 <- function(input) {
   row <- source[[1L]] + 1L
   beams <- matrix(0, nrows, ncols)
   beams[row, source[[2L]]] <- 1L
-  split_count <- 0L
 
   while(row < nrows) {
     next_row <- row + 1L
@@ -17,7 +16,6 @@ solve_day7_part2 <- function(input) {
     for (col in cols) {
       n_beams <- beams[row, col]
       if (grid[next_row, col] == "^") {
-        split_count <- split_count + n_beams
         beams[next_row, col - 1L] <- beams[next_row, col - 1L] + n_beams
         beams[next_row, col + 1L] <- beams[next_row, col + 1L] + n_beams
         next

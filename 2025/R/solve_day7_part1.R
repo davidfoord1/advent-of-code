@@ -5,7 +5,6 @@ solve_day7_part1 <- function(input) {
   ncols <- NCOL(grid)
 
   source <- which(grid == "S", arr.ind = TRUE)
-#   splitters <- which(grid == "^", arr.ind = TRUE)
 
   row <- source[[1L]] + 1L
   beams <- vector("list", nrows)
