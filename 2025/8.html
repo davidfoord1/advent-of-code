@@ -170,38 +170,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="../2025/1.html">Day 1</a> <a href="../2025/2.html">Day 2</a> <a href="../2025/3.html">Day 3</a> <a href="../2025/4.html">Day 4</a> <a href="../2025/5.html">Day 5</a> <a href="../2025/6.html">Day 6</a> <a href="../2025/7.html">Day 7</a> <a href="../2025/8.html">Day 8</a></p>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset language-set">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li></ul>
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li>
+</ul>
 <div class="tab-content language-set">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="r-day-8-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-8-part-1">— R Day 8 Part 1 —</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day8_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">n_edges</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">xyz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">input</span>, sep <span class="op">=</span><span class="st">","</span>, col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">n_coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">xyz</span><span class="op">)</span></span>
-<span>  <span class="va">xyz</span><span class="op">$</span><span class="va">box_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_coords</span><span class="op">)</span></span>
+<span>  <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">box_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_coords</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">xyz</span>, <span class="va">xyz</span>, by <span class="op">=</span> <span class="cn">NULL</span>, suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span>  <span class="va">pairs</span> <span class="op">&lt;-</span> <span class="va">pairs</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">x_2</span> <span class="op">-</span> <span class="va">x_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">y_2</span> <span class="op">-</span> <span class="va">y_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">z_2</span> <span class="op">-</span> <span class="va">z_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">dist</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">box_id_1</span> <span class="op">&lt;</span> <span class="va">box_id_2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">x_2</span> <span class="op">-</span> <span class="va">x_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">y_2</span> <span class="op">-</span> <span class="va">y_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">z_2</span> <span class="op">-</span> <span class="va">z_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span></span>
 <span>  <span class="va">pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort_by.html">sort_by</a></span><span class="op">(</span><span class="va">pairs</span>, <span class="op">~</span><span class="va">dist</span><span class="op">)</span></span>
 <span>  <span class="va">pairs</span> <span class="op">&lt;-</span> <span class="va">pairs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n_edges</span>, <span class="op">]</span></span>
-<span></span>
-<span>  <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">box_id</span></span>
 <span></span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">edge</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_edges</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">box_id_1</span> <span class="op">&lt;-</span> <span class="va">pairs</span><span class="op">[</span><span class="va">edge</span>, <span class="st">"box_id_1"</span><span class="op">]</span></span>
 <span>    <span class="va">box_id_2</span> <span class="op">&lt;-</span> <span class="va">pairs</span><span class="op">[</span><span class="va">edge</span>, <span class="st">"box_id_2"</span><span class="op">]</span></span>
 <span></span>
-<span>    <span class="va">graph_id_1</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">[</span><span class="va">box_id_1</span>, <span class="st">"graph_id"</span><span class="op">]</span></span>
-<span>    <span class="va">graph_id_2</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">[</span><span class="va">box_id_2</span>, <span class="st">"graph_id"</span><span class="op">]</span></span>
+<span>    <span class="va">graph_id_1</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">box_id_1</span><span class="op">]</span></span>
+<span>    <span class="va">graph_id_2</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">box_id_2</span><span class="op">]</span></span>
 <span></span>
-<span>    <span class="va">graph_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">graph_id_1</span>, <span class="va">graph_id_2</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="va">new_graph_id</span> <span class="op">&lt;-</span> <span class="va">graph_ids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="va">old_graph_id</span> <span class="op">&lt;-</span> <span class="va">graph_ids</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span></span>
-<span>    <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">==</span> <span class="va">old_graph_id</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">new_graph_id</span></span>
+<span>    <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">==</span> <span class="va">graph_id_2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">graph_id_1</span></span>
 <span>  <span class="op">}</span></span>
 <span></span>
 <span>  <span class="va">circuit_sizes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">)</span><span class="op">)</span></span>
@@ -215,48 +213,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day8_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 1.875 seconds
-Memory:  509742 KB</code></pre>
+<pre><code>Elapsed: 1.656 seconds
+Memory:  377196 KB</code></pre>
 </div>
 </div>
 </section><section id="r-day-8-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-8-part-2">— R Day 8 Part 2 —</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day8_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">xyz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>text <span class="op">=</span> <span class="va">input</span>, sep <span class="op">=</span><span class="st">","</span>, col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">n_coords</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">xyz</span><span class="op">)</span></span>
-<span>  <span class="va">xyz</span><span class="op">$</span><span class="va">box_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_coords</span><span class="op">)</span></span>
+<span>  <span class="va">n_boxes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">xyz</span><span class="op">)</span></span>
+<span>  <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">box_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_boxes</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">xyz</span>, <span class="va">xyz</span>, by <span class="op">=</span> <span class="cn">NULL</span>, suffixes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_1"</span>, <span class="st">"_2"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span>  <span class="va">pairs</span> <span class="op">&lt;-</span> <span class="va">pairs</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">x_2</span> <span class="op">-</span> <span class="va">x_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">y_2</span> <span class="op">-</span> <span class="va">y_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">z_2</span> <span class="op">-</span> <span class="va">z_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">dist</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">dist</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">box_id_1</span> <span class="op">&lt;</span> <span class="va">box_id_2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/transform.html">transform</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">x_2</span> <span class="op">-</span> <span class="va">x_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">y_2</span> <span class="op">-</span> <span class="va">y_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">z_2</span> <span class="op">-</span> <span class="va">z_1</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="va">pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort_by.html">sort_by</a></span><span class="op">(</span><span class="va">pairs</span>, <span class="op">~</span><span class="va">dist</span><span class="op">)</span></span>
 <span>  <span class="va">n_edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">NROW</a></span><span class="op">(</span><span class="va">pairs</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">box_id</span></span>
+<span>  <span class="va">n_circuits</span> <span class="op">&lt;-</span> <span class="va">n_boxes</span></span>
 <span></span>
 <span>  <span class="kw">for</span> <span class="op">(</span><span class="va">edge</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">n_edges</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">box_id_1</span> <span class="op">&lt;-</span> <span class="va">pairs</span><span class="op">[</span><span class="va">edge</span>, <span class="st">"box_id_1"</span><span class="op">]</span></span>
 <span>    <span class="va">box_id_2</span> <span class="op">&lt;-</span> <span class="va">pairs</span><span class="op">[</span><span class="va">edge</span>, <span class="st">"box_id_2"</span><span class="op">]</span></span>
-<span>    <span class="va">box_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">box_id_1</span>, <span class="va">box_id_2</span><span class="op">)</span></span>
 <span></span>
-<span>    <span class="va">graph_id_1</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">[</span><span class="va">box_id_1</span>, <span class="st">"graph_id"</span><span class="op">]</span></span>
-<span>    <span class="va">graph_id_2</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">[</span><span class="va">box_id_2</span>, <span class="st">"graph_id"</span><span class="op">]</span></span>
-<span>    <span class="va">graph_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">graph_id_1</span>, <span class="va">graph_id_2</span><span class="op">)</span></span>
+<span>    <span class="va">graph_id_1</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">box_id_1</span><span class="op">]</span></span>
+<span>    <span class="va">graph_id_2</span> <span class="op">&lt;-</span> <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">box_id_2</span><span class="op">]</span></span>
 <span></span>
-<span>    <span class="va">graph_id_order</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">graph_ids</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">graph_id_1</span> <span class="op">!=</span> <span class="va">graph_id_2</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">n_circuits</span> <span class="op">&lt;-</span> <span class="va">n_circuits</span> <span class="op">-</span> <span class="fl">1L</span></span>
+<span>      <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">==</span> <span class="va">graph_id_2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">graph_id_1</span></span>
+<span>    <span class="op">}</span></span>
 <span></span>
-<span>    <span class="va">graph_ids</span> <span class="op">&lt;-</span> <span class="va">graph_ids</span><span class="op">[</span><span class="va">graph_id_order</span><span class="op">]</span></span>
-<span>    <span class="va">box_ids</span> <span class="op">&lt;-</span> <span class="va">box_ids</span><span class="op">[</span><span class="va">graph_id_order</span><span class="op">]</span></span>
-<span></span>
-<span>    <span class="va">new_graph_id</span> <span class="op">&lt;-</span> <span class="va">graph_ids</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="va">old_graph_id</span> <span class="op">&lt;-</span> <span class="va">graph_ids</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span></span>
-<span>    <span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span><span class="op">[</span><span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">==</span> <span class="va">old_graph_id</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">new_graph_id</span></span>
-<span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">xyz</span><span class="op">$</span><span class="va">graph_id</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">xyz</span><span class="op">[</span><span class="va">xyz</span><span class="op">$</span><span class="va">box_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">box_ids</span>, <span class="st">"x"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">n_circuits</span> <span class="op">==</span> <span class="fl">1L</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span><span class="va">xyz</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">box_id_1</span>, <span class="va">box_id_2</span><span class="op">)</span>, <span class="st">"x"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -267,8 +257,92 @@ Memory:  509742 KB</code></pre>
 <span></span>
 <span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day8_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 2.285 seconds
-Memory:  585782 KB</code></pre>
+<pre><code>Elapsed: 1.854 seconds
+Memory:  361623 KB</code></pre>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<section id="python-day-8-part-1" class="level3"><h3 class="anchored" data-anchor-id="python-day-8-part-1">— Python Day 8 Part 1 —</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> dist, prod</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day8_part1(text, n_edges <span class="op">=</span> <span class="dv">1000</span>):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    coords <span class="op">=</span> [line.split(<span class="st">","</span>) <span class="cf">for</span> line <span class="kw">in</span> text]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    coords <span class="op">=</span> [[<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> box] <span class="cf">for</span> box <span class="kw">in</span> coords]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> []</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(coords)):</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(coords)):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">&lt;</span> j:</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                box_1, box_2 <span class="op">=</span> coords[i], coords[j]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                edge_len <span class="op">=</span> dist(box_1, box_2)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                edges <span class="op">+=</span> [[i, j, edge_len]]</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    edges.sort(key <span class="op">=</span> <span class="kw">lambda</span> x : x[<span class="dv">2</span>])</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> edges[:n_edges]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> [edge[:<span class="dv">2</span>] <span class="cf">for</span> edge <span class="kw">in</span> edges] <span class="co"># remove distances</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    uf <span class="op">=</span> nx.utils.UnionFind()</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> box_1, box_2 <span class="kw">in</span> edges:</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        uf.union(box_1, box_2)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    groups <span class="op">=</span> <span class="bu">list</span>(uf.to_sets())</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    sizes <span class="op">=</span> [<span class="bu">len</span>(g) <span class="cf">for</span> g <span class="kw">in</span> groups]</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    sizes.sort(reverse<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(prod(sizes[:<span class="dv">3</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">8</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">8</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day8_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Elapsed: 2.906 seconds
+Memory:  77395 KB</code></pre>
+</div>
+</div>
+</section><section id="python-day-8-part-2" class="level3"><h3 class="anchored" data-anchor-id="python-day-8-part-2">— Python Day 8 Part 2 —</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> dist</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day8_part2(text):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    coords <span class="op">=</span> [line.split(<span class="st">","</span>) <span class="cf">for</span> line <span class="kw">in</span> text]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    coords <span class="op">=</span> [[<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> box] <span class="cf">for</span> box <span class="kw">in</span> coords]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    n_boxes <span class="op">=</span> <span class="bu">len</span>(coords)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> []</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(coords)):</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(coords)):</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">&lt;</span> j:</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                box_1, box_2 <span class="op">=</span> coords[i], coords[j]</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                edge_len <span class="op">=</span> dist(box_1, box_2)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                edges <span class="op">+=</span> [[i, j, edge_len]]</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    edges.sort(key <span class="op">=</span> <span class="kw">lambda</span> x : x[<span class="dv">2</span>])</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> [edge[:<span class="dv">2</span>] <span class="cf">for</span> edge <span class="kw">in</span> edges] <span class="co"># remove distances</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    uf <span class="op">=</span> nx.utils.UnionFind()</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    n_circuits <span class="op">=</span> n_boxes</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> box_1, box_2 <span class="kw">in</span> edges:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># union if boxes not already in same circuit</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> uf[box_1] <span class="op">!=</span> uf[box_2]:</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>            uf.union(box_1, box_2)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            n_circuits <span class="op">-=</span> <span class="dv">1</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n_circuits <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span>(coords[box_1][<span class="dv">0</span>] <span class="op">*</span> coords[box_2][<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">8</span>, part <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">8</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day8_part2(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Elapsed: 4.79 seconds
+Memory:  108779 KB</code></pre>
 </div>
 </div>
 </section>
