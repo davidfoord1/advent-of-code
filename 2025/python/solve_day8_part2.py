@@ -1,4 +1,4 @@
-from math import dist, prod
+from math import dist
 import networkx as nx
 
 def solve_day8_part2(text):
@@ -26,5 +26,4 @@ def solve_day8_part2(text):
             n_circuits -= 1
 
         if n_circuits == 1:
-            last_xs = [coords[box_1][0], coords[box_2][0]]
-            return(prod(last_xs))
+            return(coords[box_1][0] * coords[box_2][0])
