@@ -3,10 +3,10 @@ solve_day9_part1 <- function(input) {
   coords <- as.matrix(coords)
 
   n_corners <- NROW(coords)
-  pairs <- t(combn(n_corners, 2L))
+  pairs <- combn(n_corners, 2L)
 
-  row_dist <- abs(coords[pairs[, 1], "row"] - coords[pairs[, 2], "row"]) + 1
-  col_dist <- abs(coords[pairs[, 1], "col"] - coords[pairs[, 2], "col"]) + 1
+  row_dist <- abs(coords[pairs[1, ], "row"] - coords[pairs[2, ], "row"]) + 1
+  col_dist <- abs(coords[pairs[1, ], "col"] - coords[pairs[2, ], "col"]) + 1
 
   area <- row_dist * col_dist
   max(area)
