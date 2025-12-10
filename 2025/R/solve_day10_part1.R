@@ -8,7 +8,7 @@ solve_day10_part1 <- function(input) {
 
   # everything between parentheses ()
   button_list <- stringi::stri_extract_all_regex(input, r"{(?<=\()(.+?)(?=\))}")
-  to_buttons <- \(button) as.numeric(unlist(strsplit(button, ","))) + 1
+  to_buttons <- \(button) as.integer(unlist(strsplit(button, ","))) + 1L
   button_list <- lapply(button_list, \(buttons) lapply(buttons, to_buttons))
 
   num_presses <- mapply(min_presses, goals, button_list)
@@ -18,48 +18,42 @@ solve_day10_part1 <- function(input) {
 
 min_presses <- function(goal, buttons) {
   start <- goal
-  start[] <- FALSE
+  start[] <- FALSE # all off
+
+  states <- list(start)
+  presses  <- 0L
 
   n_buttons <- length(buttons)
-  button_nums <- seq_len(n_buttons)
 
-  queue <- vector("list", 10e4)
-  queue_next <- queue_last <- 1L
-  queue[[queue_next]] <- list("lights" = start, "presses" = 0)
+  visited <- new.env(hash = TRUE, parent = emptyenv())
+  key_start <- paste0(as.integer(start), collapse = "")
+  visited[[key_start]] <- TRUE
 
-  while(TRUE) {
-    prev_state <- queue[[queue_next]]
-    lights <- prev_state[["lights"]]
-    presses <- prev_state[["presses"]] + 1
+  repeat {
+    presses <- presses + 1L
 
-    next_states <- lapply(
-      buttons,
-      \(x) {
+    next_states <- list()
+    idx <- 0L
+
+    for (lights in states) {
+      for (toggle in buttons) {
         next_lights <- lights
-        next_lights[x] <- !next_lights[x]
+        next_lights[toggle] <- !next_lights[toggle]
 
-        list("lights" = next_lights, presses = presses)
-      }
-    )
+        # check goal immediately
+        if (identical(next_lights, goal)) {
+          return(presses)
+        }
 
-    for (state in next_states) {
-      if (all(state[["lights"]] == goal)) {
-        return(presses)
+        key <- paste0(as.integer(next_lights), collapse = "")
+        if (!exists(key, envir = visited, inherits = FALSE)) {
+          visited[[key]] <- TRUE
+          idx <- idx + 1L
+          next_states[[idx]] <- next_lights
+        }
       }
     }
 
-    queue_pos <- queue_last + seq_along(next_states)
-    queue[queue_pos] <- next_states
-    queue_last <- queue_last + length(next_states)
-
-    # grow queue if reach 90% capacity
-    list_len <- length(queue)
-    if (queue_last > 0.9 * list_len) {
-      tmp <- queue
-      queue <- vector("list", 2*list_len)
-      queue[seq_len(list_len)] <- tmp
-    }
-
-    queue_next <- queue_next + 1
+    states <- next_states
   }
 }
