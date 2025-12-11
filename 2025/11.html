@@ -214,33 +214,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day11_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.021 seconds
+<pre><code>Elapsed: 0.026 seconds
 Memory:  17414 KB</code></pre>
 </div>
 </div>
 </section><section id="r-day-11-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-11-part-2">— R Day 11 Part 2 —</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day11_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">devices</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">r"{.+?(?=:)}"</span><span class="op">)</span></span>
-<span>  <span class="va">outputs</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">r"{(?&lt;= )\w+}"</span><span class="op">)</span></span>
+<span>  <span class="va">lookup</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">r"{(?&lt;= )\w+}"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">lookup</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">r"{.+?(?=:)}"</span><span class="op">)</span></span>
 <span>  <span class="va">n_devices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/prod.html">prod</a></span><span class="op">(</span></span>
-<span>    <span class="fu">count_paths</span><span class="op">(</span><span class="st">"svr"</span>, <span class="st">"fft"</span>, <span class="va">devices</span>, <span class="va">outputs</span><span class="op">)</span>,</span>
-<span>    <span class="fu">count_paths</span><span class="op">(</span><span class="st">"fft"</span>, <span class="st">"dac"</span>, <span class="va">devices</span>, <span class="va">outputs</span><span class="op">)</span>,</span>
-<span>    <span class="fu">count_paths</span><span class="op">(</span><span class="st">"dac"</span>, <span class="st">"out"</span>, <span class="va">devices</span>, <span class="va">outputs</span><span class="op">)</span></span>
+<span>    <span class="fu">count_paths</span><span class="op">(</span><span class="st">"svr"</span>, <span class="st">"fft"</span>, <span class="va">lookup</span><span class="op">)</span>,</span>
+<span>    <span class="fu">count_paths</span><span class="op">(</span><span class="st">"fft"</span>, <span class="st">"dac"</span>, <span class="va">lookup</span><span class="op">)</span>,</span>
+<span>    <span class="fu">count_paths</span><span class="op">(</span><span class="st">"dac"</span>, <span class="st">"out"</span>, <span class="va">lookup</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="va">count_paths</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">first</span>, <span class="va">last</span>, <span class="va">device_list</span> <span class="op">=</span> <span class="va">devices</span>, <span class="va">output_list</span> <span class="op">=</span> <span class="va">outputs</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">first</span> <span class="op">==</span> <span class="va">last</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">first</span> <span class="op">==</span> <span class="st">"out"</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span></span>
+<span><span class="va">count_paths</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, <span class="va">lookup</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">from</span> <span class="op">==</span> <span class="va">to</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">from</span> <span class="op">==</span> <span class="st">"out"</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">device_list</span> <span class="op">==</span> <span class="va">first</span><span class="op">)</span></span>
-<span>  <span class="va">next_devices</span> <span class="op">&lt;-</span> <span class="va">output_list</span><span class="op">[[</span><span class="va">pos</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="va">next_nodes</span> <span class="op">&lt;-</span> <span class="va">lookup</span><span class="op">[[</span><span class="va">from</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span>  <span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span></span>
-<span>    <span class="va">next_devices</span>,</span>
-<span>    \<span class="op">(</span><span class="va">next_device</span><span class="op">)</span> <span class="fu">count_paths</span><span class="op">(</span><span class="va">next_device</span>, <span class="va">last</span>, <span class="va">device_list</span>, <span class="va">output_list</span><span class="op">)</span>,</span>
+<span>    <span class="va">next_nodes</span>,</span>
+<span>    \<span class="op">(</span><span class="va">node</span><span class="op">)</span> <span class="fu">count_paths</span><span class="op">(</span><span class="va">node</span>, <span class="va">to</span>, <span class="va">lookup</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -257,7 +256,7 @@ Memory:  17414 KB</code></pre>
 <span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day11_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Elapsed: 0.008 seconds
-Memory:  45995 KB</code></pre>
+Memory:  32573 KB</code></pre>
 </div>
 </div>
 </section>
