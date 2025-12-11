@@ -10,16 +10,16 @@ solve_day11_part2 <- function(input) {
   )
 }
 
-count_paths <- function(first, last, device_list = devices, output_list = outputs) {
-  if (first == last) return(1L)
-  if (first == "out") return(0L)
+count_paths <- function(from, to, devices, outputs) {
+  if (from == to) return(1L)
+  if (from == "out") return(0L)
 
-  pos <- which(device_list == first)
-  next_devices <- output_list[[pos]]
+  pos <- which(devices == from)
+  next_devices <- outputs[[pos]]
 
   dfs <- vapply(
     next_devices,
-    \(next_device) count_paths(next_device, last, device_list, output_list),
+    \(next_device) count_paths(next_device, to, devices, outputs),
     integer(1)
   )
 
