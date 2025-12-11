@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </header><script src="../scripts/day-nav.js"></script><div class="day-nav">
-<p><a href="../2025/1.html">Day 1</a> <a href="../2025/2.html">Day 2</a> <a href="../2025/3.html">Day 3</a> <a href="../2025/4.html">Day 4</a> <a href="../2025/5.html">Day 5</a> <a href="../2025/6.html">Day 6</a> <a href="../2025/7.html">Day 7</a> <a href="../2025/8.html">Day 8</a> <a href="../2025/9.html">Day 9</a> <a href="../2025/10.html">Day 10</a></p>
+<p><a href="../2025/1.html">Day 1</a> <a href="../2025/2.html">Day 2</a> <a href="../2025/3.html">Day 3</a> <a href="../2025/4.html">Day 4</a> <a href="../2025/5.html">Day 5</a> <a href="../2025/6.html">Day 6</a> <a href="../2025/7.html">Day 7</a> <a href="../2025/8.html">Day 8</a> <a href="../2025/9.html">Day 9</a> <a href="../2025/10.html">Day 10</a> <a href="../2025/11.html">Day 11</a></p>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset language-set">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li></ul>
@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>        <span class="va">next_lights</span> <span class="op">&lt;-</span> <span class="va">lights</span></span>
 <span>        <span class="va">next_lights</span><span class="op">[</span><span class="va">toggle</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="va">next_lights</span><span class="op">[</span><span class="va">toggle</span><span class="op">]</span></span>
 <span></span>
-<span>        <span class="co"># check goal immediately</span></span>
+<span>        <span class="co"># check against goal</span></span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">next_lights</span>, <span class="va">goal</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>          <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">presses</span><span class="op">)</span></span>
 <span>        <span class="op">}</span></span>
@@ -240,8 +240,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day10_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 37.527 seconds
-Memory:  366367 KB</code></pre>
+<pre><code>Elapsed: 1.134 seconds
+Memory:  3071 KB</code></pre>
 </div>
 </div>
 </section>

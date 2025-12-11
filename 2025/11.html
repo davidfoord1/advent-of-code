@@ -123,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">2024</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../2025/1.html" aria-current="page"> 
+    <a class="nav-link" href="../2025/1.html"> 
 <span class="menu-text">2025</span></a>
   </li>  
 </ul>
@@ -169,143 +169,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header><script src="../scripts/day-nav.js"></script><div class="day-nav">
 <p><a href="../2025/1.html">Day 1</a> <a href="../2025/2.html">Day 2</a> <a href="../2025/3.html">Day 3</a> <a href="../2025/4.html">Day 4</a> <a href="../2025/5.html">Day 5</a> <a href="../2025/6.html">Day 6</a> <a href="../2025/7.html">Day 7</a> <a href="../2025/8.html">Day 8</a> <a href="../2025/9.html">Day 9</a> <a href="../2025/10.html">Day 10</a> <a href="../2025/11.html">Day 11</a></p>
 </div>
-<p>Previous years have taught me to reach for modulo when dealing with cycles, and part 1 was pretty comfy. However, I took a long time stumbling on part 2 with floor division and adjusting for my undercounting. I did get there in the end with my R solution, and then went on to try using Python just to run through every click, which turned out to be a much simpler with a faster time-to-solution.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset language-set">
-<ul class="nav nav-tabs" role="tablist">
-<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
-<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li>
-</ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li></ul>
 <div class="tab-content language-set">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<section id="r-day-1-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-1-part-1">— R Day 1 Part 1 —</h3>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day1_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">pos</span> <span class="op">&lt;-</span> <span class="fl">50L</span></span>
-<span>  <span class="va">dial_size</span> <span class="op">&lt;-</span> <span class="fl">100L</span></span>
-<span>  <span class="va">zero_counter</span> <span class="op">&lt;-</span> <span class="fl">0L</span></span>
+<section id="r-day-11-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-11-part-1">— R Day 11 Part 1 —</h3>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day11_part1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">first_key</span> <span class="op">&lt;-</span> <span class="st">"you"</span></span>
+<span>  <span class="va">last_key</span> <span class="op">&lt;-</span> <span class="st">"out"</span></span>
 <span></span>
-<span>  <span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">input</span>, <span class="fl">1L</span>, <span class="fl">1L</span><span class="op">)</span></span>
-<span>  <span class="va">val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">input</span>, <span class="fl">2L</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">devices</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">r"{.+?(?=:)}"</span><span class="op">)</span></span>
+<span>  <span class="va">outputs</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_extract.html">stri_extract_all_regex</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">r"{(?&lt;= )\w+}"</span><span class="op">)</span></span>
+<span>  <span class="va">n_devices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">turns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">dir</span> <span class="op">==</span> <span class="st">"R"</span>, <span class="va">val</span>, <span class="op">-</span><span class="va">val</span><span class="op">)</span></span>
+<span>  <span class="co"># visited &lt;- new.env(parent = emptyenv(), size = n_devices)</span></span>
+<span>  <span class="va">queue</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">vector</a></span><span class="op">(</span><span class="st">"list"</span>, <span class="va">n_devices</span><span class="op">)</span></span>
+<span>  <span class="va">queue_last</span> <span class="op">&lt;-</span> <span class="va">queue_first</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span>
+<span>  <span class="va">queue</span><span class="op">[[</span><span class="va">queue_last</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">first_key</span></span>
 <span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">turn</span> <span class="kw">in</span> <span class="va">turns</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">pos</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">pos</span> <span class="op">+</span> <span class="va">turn</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="va">dial_size</span></span>
+<span>  <span class="va">path_count</span> <span class="op">&lt;-</span> <span class="fl">0L</span></span>
 <span></span>
-<span>    <span class="va">zero_counter</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">pos</span> <span class="op">==</span> <span class="fl">0L</span><span class="op">)</span> <span class="op">+</span> <span class="va">zero_counter</span></span>
-<span>  <span class="op">}</span></span>
+<span>  <span class="kw">while</span> <span class="op">(</span><span class="va">queue_first</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">queue</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">device</span> <span class="op">&lt;-</span> <span class="va">queue</span><span class="op">[[</span><span class="va">queue_first</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">pos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">devices</span> <span class="op">==</span> <span class="va">device</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">zero_counter</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day1_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.002 seconds
-Memory:  381 KB</code></pre>
-</div>
-</div>
-</section><section id="r-day-1-part-2" class="level3"><h3 class="anchored" data-anchor-id="r-day-1-part-2">— R Day 1 Part 2 —</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">solve_day1_part2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">pos</span> <span class="op">&lt;-</span> <span class="fl">50L</span></span>
-<span>  <span class="va">dial_size</span> <span class="op">&lt;-</span> <span class="fl">100L</span></span>
-<span>  <span class="va">counter</span> <span class="op">&lt;-</span> <span class="fl">0L</span></span>
-<span></span>
-<span>  <span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">input</span>, <span class="fl">1L</span>, <span class="fl">1L</span><span class="op">)</span></span>
-<span>  <span class="va">val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html">substr</a></span><span class="op">(</span><span class="va">input</span>, <span class="fl">2L</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">turns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">dir</span> <span class="op">==</span> <span class="st">"R"</span>, <span class="va">val</span>, <span class="op">-</span><span class="va">val</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">turn</span> <span class="kw">in</span> <span class="va">turns</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="co"># position on infinite number line</span></span>
-<span>    <span class="va">abs_pos</span> <span class="op">&lt;-</span> <span class="va">pos</span> <span class="op">+</span> <span class="va">turn</span></span>
-<span></span>
-<span>    <span class="co"># count multiple of 100 between the start and end</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">turn</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="va">counter</span> <span class="op">&lt;-</span> <span class="va">counter</span> <span class="op">+</span></span>
-<span>        <span class="op">(</span><span class="va">abs_pos</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="va">dial_size</span><span class="op">)</span> <span class="op">-</span></span>
-<span>        <span class="op">(</span><span class="va">pos</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="va">dial_size</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">device</span>, <span class="st">"out"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="va">path_count</span> <span class="op">&lt;-</span> <span class="va">path_count</span> <span class="op">+</span> <span class="fl">1L</span></span>
 <span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>      <span class="va">counter</span> <span class="op">&lt;-</span> <span class="va">counter</span> <span class="op">+</span></span>
-<span>        <span class="op">(</span><span class="va">pos</span> <span class="op">-</span> <span class="fl">1L</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="va">dial_size</span> <span class="op">-</span></span>
-<span>        <span class="op">(</span><span class="va">abs_pos</span> <span class="op">-</span> <span class="fl">1L</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="va">dial_size</span></span>
+<span>      <span class="va">next_devices</span> <span class="op">&lt;-</span> <span class="va">outputs</span><span class="op">[[</span><span class="va">pos</span><span class="op">]</span><span class="op">]</span></span>
+<span>      <span class="va">next_in_queue</span> <span class="op">&lt;-</span> <span class="va">queue_last</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="va">next_devices</span><span class="op">)</span></span>
+<span>      <span class="va">queue</span><span class="op">[</span><span class="va">next_in_queue</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">next_devices</span></span>
+<span>      <span class="va">queue_last</span> <span class="op">&lt;-</span> <span class="va">queue_last</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">next_devices</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span></span>
-<span>    <span class="va">pos</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">pos</span> <span class="op">+</span> <span class="va">turn</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="va">dial_size</span></span>
+<span>    <span class="va">queue_first</span> <span class="op">&lt;-</span> <span class="va">queue_first</span> <span class="op">+</span> <span class="fl">1L</span></span>
 <span>  <span class="op">}</span></span>
 <span></span>
-<span>  <span class="va">counter</span></span>
+<span>  <span class="va">path_count</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span>, part <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">11</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">input</span> <span class="op">=</span> <span class="fu">aoc_read</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day1_part2</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">aoc_run</span><span class="op">(</span><span class="fu">solve_day11_part1</span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.003 seconds
-Memory:  421 KB</code></pre>
-</div>
-</div>
-</section>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<section id="python-day-1-part-1" class="level3"><h3 class="anchored" data-anchor-id="python-day-1-part-1">— Python Day 1 Part 1 —</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day1_part1(text):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    zero_counter <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    dial_size <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    turns <span class="op">=</span> [turn.replace(<span class="st">"L"</span>, <span class="st">"-"</span>).replace(<span class="st">"R"</span>, <span class="st">""</span>) <span class="cf">for</span> turn <span class="kw">in</span> text]</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    turns <span class="op">=</span> [<span class="bu">int</span>(turn) <span class="cf">for</span> turn <span class="kw">in</span> turns]</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> turn <span class="kw">in</span> turns:</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        pos <span class="op">=</span> (pos <span class="op">+</span> turn) <span class="op">%</span> dial_size</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        zero_counter <span class="op">+=</span> pos <span class="op">==</span> <span class="dv">0</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(zero_counter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">1</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day1_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.002 seconds
-Memory:  409 KB</code></pre>
-</div>
-</div>
-</section><section id="python-day-1-part-2" class="level3"><h3 class="anchored" data-anchor-id="python-day-1-part-2">— Python Day 1 Part 2 —</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day1_part2(text):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    zero_counter <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    dial_size <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> text:</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> line[<span class="dv">0</span>] <span class="op">==</span> <span class="st">"R"</span>:</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            step <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>            step <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        amount <span class="op">=</span> <span class="bu">int</span>(line[<span class="dv">1</span>:])</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(amount):</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>            pos <span class="op">=</span> (pos <span class="op">+</span> step) <span class="op">%</span> dial_size</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> pos <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>                zero_counter <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>(zero_counter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">1</span>, part <span class="op">=</span> <span class="dv">2</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day1_part2(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
-<pre><code>Elapsed: 0.161 seconds
-Memory:  12 KB</code></pre>
+<pre><code>Elapsed: 0.023 seconds
+Memory:  17414 KB</code></pre>
 </div>
 </div>
 </section>
