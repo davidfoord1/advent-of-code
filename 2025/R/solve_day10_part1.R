@@ -40,7 +40,7 @@ min_presses <- function(goal, buttons) {
         next_lights <- lights
         next_lights[toggle] <- !next_lights[toggle]
 
-        # check goal immediately
+        # Exit if at goal ---
         if (identical(next_lights, goal)) {
           return(presses)
         }
