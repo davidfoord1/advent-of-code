@@ -4,9 +4,9 @@ solve_day11_part2 <- function(input) {
   n_devices <- length(input)
 
   prod(
-    count_paths("svr", "fft"),
-    count_paths("fft", "dac"),
-    count_paths("dac", "out")
+    count_paths("svr", "fft", devices, outputs),
+    count_paths("fft", "dac", devices, outputs),
+    count_paths("dac", "out", devices, outputs)
   )
 }
 
@@ -19,7 +19,7 @@ count_paths <- function(first, last, device_list = devices, output_list = output
 
   dfs <- vapply(
     next_devices,
-    \(next_device) count_paths(next_device, last),
+    \(next_device) count_paths(next_device, last, device_list, output_list),
     integer(1)
   )
 
