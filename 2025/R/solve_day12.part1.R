@@ -1,4 +1,4 @@
-solve_day12_part1(input) {
+solve_day12_part1 <- function(input) {
   # Parsing ----
   pres_start <- which(substr(input, 2L, 2L) == ":") + 1L
   empty <- which(substr(input, 1L, 1L) == "")
@@ -44,9 +44,8 @@ solve_day12_part1(input) {
   pres_areas <- vapply(presents, sum, integer(1))
   min_areas <- lapply(pres_counts, \(x) x * pres_areas)
 
-  # plus a little more space is probably enough
-  min_areas <- vapply(min_areas, sum, numeric(1)) * 1.1
+  min_areas <- vapply(min_areas, sum, numeric(1))
 
   # uhh, ahahahaha
-  sum(min_areas < base_areas)
+  sum(min_areas <= base_areas)
 }
