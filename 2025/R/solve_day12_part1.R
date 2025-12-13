@@ -47,5 +47,5 @@ solve_day12_part1 <- function(input) {
   min_areas <- vapply(min_areas, sum, numeric(1))
 
   # uhh, ahahahaha
-  sum(min_areas <= base_areas)
+  sum(min_areas < base_areas)
 }
