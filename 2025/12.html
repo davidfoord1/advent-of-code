@@ -170,7 +170,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="../2025/1.html">Day 1</a> <a href="../2025/2.html">Day 2</a> <a href="../2025/3.html">Day 3</a> <a href="../2025/4.html">Day 4</a> <a href="../2025/5.html">Day 5</a> <a href="../2025/6.html">Day 6</a> <a href="../2025/7.html">Day 7</a> <a href="../2025/8.html">Day 8</a> <a href="../2025/9.html">Day 9</a> <a href="../2025/10.html">Day 10</a> <a href="../2025/11.html">Day 11</a> <a href="../2025/12.html">Day 12</a></p>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset language-set">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li></ul>
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li>
+</ul>
 <div class="tab-content language-set">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <section id="r-day-12-part-1" class="level3"><h3 class="anchored" data-anchor-id="r-day-12-part-1">— R Day 12 Part 1 —</h3>
@@ -223,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="va">min_areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">min_areas</span>, <span class="va">sum</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="co"># uhh, ahahahaha</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">min_areas</span> <span class="op">&lt;=</span> <span class="va">base_areas</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">min_areas</span> <span class="op">&lt;</span> <span class="va">base_areas</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <details class="code-fold"><summary>Run</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">aoc_source</span><span class="op">(</span>day <span class="op">=</span> <span class="fl">12</span>, part <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -251,6 +254,38 @@ Memory:  768 KB</code></pre>
 </details><div class="cell-output cell-output-stdout">
 <pre><code>Elapsed: 0.001 seconds
 Memory:  &lt; 1 KB</code></pre>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<section id="python-day-12-part-1" class="level3"><h3 class="anchored" data-anchor-id="python-day-12-part-1">— Python Day 12 Part 1 —</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve_day12_part1(text):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    spaces <span class="op">=</span> [i <span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(text) <span class="cf">if</span> v <span class="op">==</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    split <span class="op">=</span> spaces[<span class="bu">len</span>(spaces)<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    trees <span class="op">=</span> text[split:]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    widths <span class="op">=</span> [<span class="bu">int</span>(line[:<span class="dv">2</span>]) <span class="cf">for</span> line <span class="kw">in</span> trees]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    heights <span class="op">=</span> [<span class="bu">int</span>(line[<span class="dv">3</span>:<span class="dv">5</span>]) <span class="cf">for</span> line <span class="kw">in</span> trees]</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    areas <span class="op">=</span> [w <span class="op">*</span> h <span class="cf">for</span> w, h <span class="kw">in</span> <span class="bu">zip</span>(widths, heights)]</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> [re.findall(<span class="st">"(?&lt;= )\d+"</span>, line) <span class="cf">for</span> line <span class="kw">in</span> trees]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> [[<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> line] <span class="cf">for</span> line <span class="kw">in</span> counts]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> [<span class="bu">sum</span>(line) <span class="cf">for</span> line <span class="kw">in</span> counts]</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    valid <span class="op">=</span> [area <span class="op">&gt;=</span> (<span class="dv">9</span> <span class="op">*</span> count) <span class="cf">for</span> area, count <span class="kw">in</span> <span class="bu">zip</span>(areas, counts)]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">sum</span>(valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<details class="code-fold"><summary>Run</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoc_source(day <span class="op">=</span> <span class="dv">12</span>, part <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">input</span> <span class="op">=</span> aoc_read(day <span class="op">=</span> <span class="dv">12</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> aoc_run(<span class="st">"solve_day12_part1(input)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>Elapsed: 0.016 seconds
+Memory:  621 KB</code></pre>
 </div>
 </div>
 </section>
